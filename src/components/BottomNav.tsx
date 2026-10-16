@@ -2,17 +2,17 @@ import {
   Home,
   Compass,
   Dumbbell,
-  BarChart2,
-  User,
+  ChartNoAxesCombined,
+  UserRound,
   ShoppingBag,
 } from "lucide-react"
 
 const tabs = [
-  { id: "dashboard", icon: Home, label: "Dashboard" },
+  { id: "dashboard", icon: Home, label: "Home" },
   { id: "explore", icon: Compass, label: "Explore" },
   { id: "coaching", icon: Dumbbell, label: "Coaching" },
-  { id: "insights", icon: BarChart2, label: "Insights" },
-  { id: "profile", icon: User, label: "Profile" },
+  { id: "insights", icon: ChartNoAxesCombined, label: "Insights" },
+  { id: "profile", icon: UserRound, label: "Profile" },
 ]
 
 interface BottomNavProps {
@@ -34,22 +34,24 @@ export default function BottomNav({
           return (
             <button
               key={id}
+              type="button"
               onClick={() => onNavigate(id)}
               className={`bottom-nav__item ${isActive ? "is-active" : ""}`}
               aria-current={isActive ? "page" : undefined}
             >
-              <Icon size={20} />
+              <Icon size={20} aria-hidden="true" />
               <span>{label}</span>
             </button>
           )
         })}
         <button
+          type="button"
           className="bottom-nav__cart"
           onClick={() => onNavigate("cart")}
-          aria-label={`Cart, ${cartCount} items`}
+          aria-label={`Open cart, ${cartCount} ${cartCount === 1 ? "item" : "items"}`}
         >
-          <ShoppingBag size={19} />
-          {cartCount > 0 && <span>{cartCount}</span>}
+          <ShoppingBag size={19} aria-hidden="true" />
+          {cartCount > 0 && <span aria-hidden="true">{cartCount > 99 ? "99+" : cartCount}</span>}
         </button>
       </div>
     </nav>
