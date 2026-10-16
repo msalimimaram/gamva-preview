@@ -2498,3 +2498,82 @@ html[data-theme="light"] .octolife-screen .octo-dimension-detail {
 .octolife-screen .octo-wheel-hint {
   bottom:1px;
 }
+
+
+/* Natural gemstone finish: restrained internal inclusions and jewel-toned facets. */
+.octolife-screen .octo-wheel-sector .octo-crystal-face {
+  fill-opacity:.54;
+  stroke-linejoin:round;
+  paint-order:stroke fill;
+  filter:
+    drop-shadow(0 2px 1px rgba(0,0,0,.66))
+    drop-shadow(0 5px 4px rgba(0,0,0,.42))
+    drop-shadow(0 -1px 1px rgba(255,255,255,.12));
+  transition:fill-opacity .24s ease,stroke-opacity .24s ease,filter .24s ease;
+}
+.octolife-screen .octo-wheel-sector.is-active .octo-crystal-face {
+  fill-opacity:.97;
+  filter:
+    drop-shadow(0 0 3px var(--dimension-color,rgba(169,112,255,.8)))
+    drop-shadow(0 0 10px var(--dimension-color,rgba(169,112,255,.52)))
+    drop-shadow(0 4px 1px rgba(0,0,0,.78))
+    drop-shadow(0 8px 6px rgba(0,0,0,.5))
+    drop-shadow(0 -1px 1px rgba(255,255,255,.32));
+}
+.octolife-screen .octo-wheel-sector.is-adjacent .octo-crystal-face {
+  fill-opacity:.82;
+  filter:
+    drop-shadow(0 0 5px currentColor)
+    drop-shadow(0 3px 1px rgba(0,0,0,.7))
+    drop-shadow(0 6px 4px rgba(0,0,0,.4))
+    drop-shadow(0 -1px 1px rgba(255,255,255,.2));
+}
+/* Keep the inclusion lines very fine and subdued, like natural gemstone fractures. */
+.octolife-screen .octo-crystal-vein {
+  filter:drop-shadow(0 0 1.5px currentColor);
+  stroke-linecap:round;
+  mix-blend-mode:screen;
+  transition:stroke-opacity .24s ease,stroke-width .24s ease;
+}
+.octolife-screen .octo-wheel-sector .octo-crystal-vein {
+  stroke-opacity:.22;
+  stroke-width:.55;
+}
+.octolife-screen .octo-wheel-sector .octo-crystal-vein-fine {
+  stroke:#FFFFFF;
+  stroke-opacity:.12;
+  stroke-width:.4;
+  filter:none;
+}
+.octolife-screen .octo-wheel-sector.is-active .octo-crystal-vein {
+  stroke-opacity:.48;
+  stroke-width:.8;
+  filter:drop-shadow(0 0 2px currentColor);
+}
+.octolife-screen .octo-wheel-sector.is-active .octo-crystal-vein-fine {
+  stroke-opacity:.26;
+  stroke-width:.45;
+}
+.octolife-screen .octo-wheel-sector.is-adjacent .octo-crystal-vein {
+  stroke-opacity:.32;
+  stroke-width:.6;
+}
+.octolife-screen .octo-wheel-sector.is-adjacent .octo-crystal-vein-fine {
+  stroke-opacity:.17;
+}
+.octolife-screen .octo-sector-icon {
+  filter:drop-shadow(0 0 4px currentColor) drop-shadow(0 0 10px currentColor);
+}
+/* Rich mineral palette: saturated jewel colors instead of washed-out glass. */
+.octolife-screen .octo-wheel-sector[data-dimension-index="0"] { color:#B995FF; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="1"] { color:#F4C56A; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="2"] { color:#D6A65C; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="3"] { color:#FF956C; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="4"] { color:#FF718D; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="5"] { color:#79A9FF; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="6"] { color:#9B91FF; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="7"] { color:#39E6F4; }
+.octolife-screen .octo-wheel-sector.is-active .octo-crystal-face {
+  stroke:var(--dimension-color, #B995FF);
+}
+.octolife-screen .octo-wheel-hint { bottom:1px; }
