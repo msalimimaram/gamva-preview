@@ -1,9 +1,11 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import BottomNav from "./components/BottomNav"
 import Splash from "./screens/Splash"
 import Onboarding from "./screens/Onboarding"
 import Auth from "./screens/Auth"
-import Dashboard from "./screens/Dashboard"
+import Octolife from "./screens/Octolife"
+import Social from "./screens/Social"
+import ContentHub from "./screens/ContentHub"
 import Explore from "./screens/Explore"
 import ProductDetail from "./screens/ProductDetail"
 import Cart from "./screens/Cart"
@@ -16,16 +18,26 @@ import Profile from "./screens/Profile"
 import type { CartItem, LoyaltyState, Role, Screen } from "./types"
 import { getProduct } from "./data/products"
 
-const NAV_SCREENS: Screen[] = [
-  "dashboard",
-  "explore",
-  "coaching",
-  "insights",
-  "profile",
-]
+const NAV_SCREENS: Screen[] = ["dashboard", "social", "content", "profile"]
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>("splash")
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    try {
+      return localStorage.getItem("gamva-theme") === "light" ? "light" : "dark"
+    } catch {
+      return "dark"
+    }
+  })
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    try {
+      localStorage.setItem("gamva-theme", theme)
+    } catch {
+      // Theme still works for this session if storage is unavailable.
+    }
+  }, [theme])
   const [role, setRole] = useState<Role>("student")
   const [selectedProductId, setSelectedProductId] = useState("creatine-core")
   const [cart, setCart] = useState<CartItem[]>([])
@@ -36,6 +48,8 @@ export default function App() {
     referrals: 3,
   })
   const [toast, setToast] = useState<string | null>(null)
+  const [moodOpen, setMoodOpen] = useState(false)
+  const [selectedMood, setSelectedMood] = useState<string | null>(null)
 
   const navigate = (next: Screen, data?: { productId?: string }) => {
     if (data?.productId) setSelectedProductId(data.productId)
@@ -90,12 +104,12 @@ export default function App() {
     [cart],
   )
 
-  const showNav = NAV_SCREENS.includes(screen)
+  const showNav = !["splash", "onboarding", "auth", "product", "cart", "comparison", "report", "loyalty"].includes(screen)
 
-  const activeTab = NAV_SCREENS.includes(screen) ? screen : "dashboard"
+  const activeTab = NAV_SCREENS.includes(screen) ? screen : ""
 
   return (
-    <main className="app-shell">
+    <main className="app-shell" data-theme={theme}>
       <section className="app-frame">
         <div className="app-content">
           {screen === "splash" && (
@@ -119,8 +133,12 @@ export default function App() {
           )}
 
           {screen === "dashboard" && (
-            <Dashboard role={role} onNavigate={navigate} />
+            <Octolife onNavigate={navigate} cartCount={cartCount} />
           )}
+
+          {screen === "social" && <Social onNavigate={navigate} />}
+
+          {screen === "content" && <ContentHub onNavigate={navigate} />}
 
           {screen === "explore" && (
             <Explore
@@ -182,6 +200,8 @@ export default function App() {
               onRoleChange={setRole}
               onLogout={() => navigate("auth")}
               onNavigate={navigate}
+              theme={theme}
+              onToggleTheme={() => setTheme((current) => current === "dark" ? "light" : "dark")}
             />
           )}
         </div>
@@ -191,7 +211,33 @@ export default function App() {
             active={activeTab}
             cartCount={cartCount}
             onNavigate={(id) => navigate(id as Screen)}
+            onMood={() => setMoodOpen(true)}
           />
+        )}
+        {moodOpen && (
+          <div className="mood-overlay" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) setMoodOpen(false) }}>
+            <section className="mood-dialog" role="dialog" aria-modal="true" aria-labelledby="mood-title">
+              <button type="button" className="mood-close" onClick={() => setMoodOpen(false)} aria-label="Close mood check-in">×</button>
+              <p className="octo-eyebrow">A MOMENT FOR YOU</p>
+              <h2 id="mood-title">How are you, really?</h2>
+              <p className="mood-description">No right answer. This is a check-in, not a score.</p>
+              <div className="mood-options">
+                {[
+                  { id: "great", emoji: "✨", label: "Great" },
+                  { id: "good", emoji: "🙂", label: "Good" },
+                  { id: "okay", emoji: "😐", label: "Okay" },
+                  { id: "low", emoji: "🌧️", label: "Low" },
+                  { id: "hard", emoji: "🫶", label: "Hard day" },
+                ].map((item) => (
+                  <button key={item.id} type="button" className={selectedMood === item.id ? "is-selected" : ""} onClick={() => setSelectedMood(item.id)} aria-pressed={selectedMood === item.id}>
+                    <span>{item.emoji}</span><small>{item.label}</small>
+                  </button>
+                ))}
+              </div>
+              <p className="mood-kind-note">You matter, even on the days that don't go to plan.</p>
+              <button type="button" className="mood-save" disabled={!selectedMood} onClick={() => { try { localStorage.setItem("gamva-last-mood", selectedMood || "") } catch { /* optional */ } setMoodOpen(false); notify("Mood check-in saved in this preview.") }}>Save check-in</button>
+            </section>
+          </div>
         )}
         {toast && (
           <div className="app-toast" role="status">
