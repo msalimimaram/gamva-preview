@@ -1,5 +1,5 @@
 import { useRef, useState } from "react"
-import type { CSSProperties, PointerEvent as ReactPointerEvent } from "react"
+import type { CSSProperties, FormEvent, PointerEvent as ReactPointerEvent } from "react"
 import {
   ArrowDownRight,
   BookOpen,
@@ -187,7 +187,7 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
     setCompleted((current) => current.includes(key) ? current.filter((item) => item !== key) : [...current, key])
   }
 
-  const addRoutine = (event: React.FormEvent<HTMLFormElement>) => {
+  const addRoutine = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const title = routineDraft.trim()
     if (!title) return
@@ -198,7 +198,7 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
     setMessage("Routine added. You can check it off whenever you complete it.")
   }
 
-  const addGoal = (event: React.FormEvent<HTMLFormElement>) => {
+  const addGoal = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const title = goalDraft.trim()
     if (!title) return
