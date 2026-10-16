@@ -2668,3 +2668,18 @@ html[data-theme="light"] .octolife-screen .octo-dimension-detail {
     transition: none !important;
   }
 }
+
+
+/* Finance / money stone: distinct mineral hue, intentionally absent from the other seven. */
+.octolife-screen .octo-wheel-sector[data-dimension-index="2"] { --gem-color:#B6F36A; color:#B6F36A; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="2"] .octo-crystal-face {
+  fill: color-mix(in srgb, #B6F36A 72%, #111c2a 28%) !important;
+  stroke: color-mix(in srgb, #D9FF9A 78%, #ffffff 22%) !important;
+}
+.octolife-screen .octo-wheel-sector[data-dimension-index="2"].is-active .octo-crystal-face {
+  fill: color-mix(in srgb, #B6F36A 84%, #26351d 16%) !important;
+  stroke: #E7FFB9 !important;
+}
+.octolife-screen .octo-wheel-sector[data-dimension-index="2"] .octo-crystal-vein {
+  stroke: color-mix(in srgb, #B6F36A 54%, #1b2b24 46%) !important;
+}
