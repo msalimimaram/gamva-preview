@@ -25,7 +25,23 @@ const NAV_SCREENS: Screen[] = [
 ]
 
 export default function App() {
-  const [screen, setScreen] = useState<Screen>("splash")\n  const [theme, setTheme] = useState<"dark" | "light">(() => {\n    try { return localStorage.getItem("gamva-theme") === "light" ? "light" : "dark" } catch { return "dark" }\n  })\n\n  useEffect(() => {\n    document.documentElement.dataset.theme = theme\n    try { localStorage.setItem("gamva-theme", theme) } catch { /* storage is optional */ }\n  }, [theme])
+  const [screen, setScreen] = useState<Screen>("splash")
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    try {
+      return localStorage.getItem("gamva-theme") === "light" ? "light" : "dark"
+    } catch {
+      return "dark"
+    }
+  })
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    try {
+      localStorage.setItem("gamva-theme", theme)
+    } catch {
+      // Theme still works for this session if storage is unavailable.
+    }
+  }, [theme])
   const [role, setRole] = useState<Role>("student")
   const [selectedProductId, setSelectedProductId] = useState("creatine-core")
   const [cart, setCart] = useState<CartItem[]>([])
