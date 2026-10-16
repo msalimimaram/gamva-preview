@@ -2444,3 +2444,57 @@ html[data-theme="light"] .octolife-screen .octo-dimension-detail {
 @media (prefers-reduced-motion: reduce) {
   .octolife-screen .octo-crystal-face { transition:none!important; }
 }
+
+
+/* Final crystal / neon relief pass for the Octolife dial. */
+.octolife-screen .octo-wheel-sector .octo-crystal-face {
+  fill-opacity:.42;
+  stroke-linejoin:round;
+  paint-order:stroke fill;
+  filter:
+    drop-shadow(0 3px 1px rgba(0,0,0,.76))
+    drop-shadow(0 6px 5px rgba(0,0,0,.48))
+    drop-shadow(0 -1px 1px rgba(255,255,255,.16));
+  transition:fill-opacity .22s ease,stroke-opacity .22s ease,filter .22s ease;
+}
+.octolife-screen .octo-wheel-sector.is-active .octo-crystal-face {
+  fill-opacity:.96;
+  filter:
+    drop-shadow(0 0 2px var(--dimension-color,rgba(169,112,255,.95)))
+    drop-shadow(0 0 8px var(--dimension-color,rgba(169,112,255,.75)))
+    drop-shadow(0 4px 1px rgba(0,0,0,.85))
+    drop-shadow(0 9px 7px rgba(0,0,0,.58))
+    drop-shadow(0 -1px 1px rgba(255,255,255,.42));
+}
+.octolife-screen .octo-wheel-sector.is-adjacent .octo-crystal-face {
+  fill-opacity:.78;
+  filter:
+    drop-shadow(0 0 4px currentColor)
+    drop-shadow(0 3px 1px rgba(0,0,0,.72))
+    drop-shadow(0 6px 5px rgba(0,0,0,.46))
+    drop-shadow(0 -1px 1px rgba(255,255,255,.24));
+}
+.octolife-screen .octo-crystal-vein {
+  filter:drop-shadow(0 0 3px currentColor) drop-shadow(0 0 7px currentColor);
+  stroke-linecap:round;
+  mix-blend-mode:screen;
+  transition:stroke-opacity .22s ease,stroke-width .22s ease;
+}
+.octolife-screen .octo-wheel-sector.is-active .octo-crystal-vein {
+  stroke-opacity:1;
+  stroke-width:2;
+  filter:drop-shadow(0 0 3px currentColor) drop-shadow(0 0 9px currentColor);
+}
+.octolife-screen .octo-wheel-sector.is-adjacent .octo-crystal-vein {
+  stroke-opacity:.82;
+}
+.octolife-screen .octo-wheel-sector:focus-visible .octo-crystal-face {
+  stroke:#fff;
+  stroke-width:3;
+}
+.octolife-screen .octo-sector-icon {
+  filter:drop-shadow(0 0 4px currentColor) drop-shadow(0 0 9px currentColor);
+}
+.octolife-screen .octo-wheel-hint {
+  bottom:1px;
+}
