@@ -113,7 +113,6 @@ export default function Octolife({ onNavigate }: OctolifeProps) {
   const [rotation, setRotation] = useState(0)
   const [tab, setTab] = useState<HomeTab>("today")
   const [completed, setCompleted] = useState<string[]>([])
-  const [showAllDimensions, setShowAllDimensions] = useState(false)
   const [message, setMessage] = useState("")
   const drag = useRef<{ angle: number; rotation: number; moved: boolean; x: number; y: number } | null>(null)
   const didDrag = useRef(false)
@@ -328,7 +327,7 @@ export default function Octolife({ onNavigate }: OctolifeProps) {
 
         <section className="octo-footer-note"><HeartHandshake size={18} /><p><b>You're important, even when things don't go to plan.</b><br />GAMva is here to support your progress, never to judge your setbacks.</p></section>
       </div>
-      {showAllDimensions && <div className="octo-dimensions-overlay" role="dialog" aria-modal="true" aria-label="Choose a life dimension"><div className="octo-dimensions-modal"><div className="octo-panel-heading"><div><h3>Explore your dimensions</h3><p>Choose where you'd like to focus next.</p></div><button type="button" onClick={() => setShowAllDimensions(false)} aria-label="Close dimensions"><ChevronRight size={18} /></button></div>{dimensions.map((item, index) => { const Icon = item.icon; return <button key={item.id} type="button" className="octo-progress-row" onClick={() => { rotateTo(index); setShowAllDimensions(false) }}><span className="octo-progress-dot" style={{ background: item.color }} /><Icon size={17} color={item.color} /><span>{item.name}</span><b>{item.progress}%</b></button> })}</div></div>}
+
     </div>
   )
 }
