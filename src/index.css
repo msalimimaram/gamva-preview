@@ -1969,3 +1969,20 @@ html[data-theme="light"] .octo-inline-form { border-color:rgba(40,35,80,.13); ba
 html[data-theme="light"] .octo-inline-form input { color:#211d3b; background:rgba(40,35,80,.025); border-color:rgba(40,35,80,.15); }
 html[data-theme="light"] .octo-custom-goal { border-color:rgba(40,35,80,.12); background:rgba(255,255,255,.7); }
 html[data-theme="light"] .octo-custom-goal b { color:#211d3b; }
+
+
+.profile-screen { position: relative; }
+.profile-modal-overlay { position: absolute; z-index: 60; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(3,3,10,.72); backdrop-filter: blur(16px); }
+.profile-edit-modal { position: relative; width: min(100%, 460px); padding: 28px; border: 1px solid rgba(225,225,255,.14); border-radius: 24px; background: radial-gradient(ellipse at 0% 0%,rgba(108,60,225,.16),transparent 55%),#11111d; box-shadow: 0 30px 90px rgba(0,0,0,.5); }
+.profile-edit-modal h2 { margin: 10px 0 20px; color: #f5f3ff; font: 800 25px 'Outfit',sans-serif; }
+.profile-edit-modal label { display: grid; gap: 7px; margin-top: 13px; color: rgba(226,225,246,.7); font: 600 11px 'Outfit',sans-serif; }
+.profile-edit-modal input { width: 100%; min-height: 44px; padding: 0 12px; border: 1px solid rgba(225,225,255,.13); border-radius: 12px; outline: none; color: #f5f3ff; background: rgba(255,255,255,.04); font: 12px 'Inter',sans-serif; }
+.profile-edit-modal input:focus { border-color: rgba(0,229,255,.48); box-shadow: 0 0 0 3px rgba(0,229,255,.06); }
+.profile-edit-close { position: absolute; top: 13px; right: 13px; width: 34px; height: 34px; border: 1px solid rgba(225,225,255,.1); border-radius: 11px; color: #d7d1f4; background: rgba(255,255,255,.05); font-size: 22px; cursor: pointer; }
+.profile-edit-note { margin: 13px 0; color: rgba(226,225,246,.52); font: 10px/1.5 'Inter',sans-serif; }
+.profile-edit-save { width: 100%; min-height: 44px; border: 1px solid rgba(108,60,225,.35); border-radius: 12px; color: #fff; background: linear-gradient(120deg,#794df0,#542fc1); font: 700 12px 'Outfit',sans-serif; cursor: pointer; }
+html[data-theme="light"] .profile-edit-modal { background: radial-gradient(ellipse at 0% 0%,rgba(108,60,225,.08),transparent 55%),#fff; border-color: rgba(40,35,80,.15); }
+html[data-theme="light"] .profile-edit-modal h2 { color: #211d3b !important; }
+html[data-theme="light"] .profile-edit-modal label,html[data-theme="light"] .profile-edit-note { color: rgba(45,41,77,.68) !important; }
+html[data-theme="light"] .profile-edit-modal input { color: #211d3b; background: rgba(40,35,80,.025); border-color: rgba(40,35,80,.15); }
+@media (max-width: 420px) { .profile-edit-modal { padding: 24px 18px; } }
