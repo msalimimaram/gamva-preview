@@ -322,12 +322,44 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
                           className="octo-crystal-face"
                           d={segmentPath(index)}
                           fill={segmentFill}
-                          fillOpacity={segmentOpacity}
+                          fillOpacity={active ? 0.88 : adjacent ? 0.69 : 0.35}
                           stroke={active || adjacent ? item.color : "#53617F"}
-                          strokeOpacity={active ? 0.98 : adjacent ? 0.58 : 0.23}
-                          strokeWidth={active ? 2.1 : 1}
+                          strokeOpacity={active ? 1 : adjacent ? 0.86 : 0.46}
+                          strokeWidth={active ? 2.4 : adjacent ? 1.8 : 1.2}
                         />
                         <path d={segmentPath(index)} fill="url(#octoCrystalSheen)" stroke="none" pointerEvents="none" />
+                        <path
+                          className="octo-crystal-vein"
+                          d={(() => {
+                            const a = -112.5 + index * 45 + 2.2
+                            const b = a + 40.6
+                            const p1 = polar(180, 220, 123, a + 8)
+                            const p2 = polar(180, 220, 154, (a + b) / 2 - 5)
+                            const p3 = polar(180, 220, 187, b - 8)
+                            return `M ${p1.x} ${p1.y} Q ${p2.x} ${p2.y} ${p3.x} ${p3.y}`
+                          })()}
+                          fill="none"
+                          stroke={active || adjacent ? item.color : "#74809E"}
+                          strokeWidth={active ? 1.7 : 1.1}
+                          strokeOpacity={active ? 0.9 : adjacent ? 0.65 : 0.28}
+                          pointerEvents="none"
+                        />
+                        <path
+                          className="octo-crystal-vein octo-crystal-vein-fine"
+                          d={(() => {
+                            const a = -112.5 + index * 45 + 2.2
+                            const b = a + 40.6
+                            const p1 = polar(180, 220, 132, a + 13)
+                            const p2 = polar(180, 220, 156, (a + b) / 2 + 5)
+                            const p3 = polar(180, 220, 180, b - 13)
+                            return `M ${p1.x} ${p1.y} Q ${p2.x} ${p2.y} ${p3.x} ${p3.y}`
+                          })()}
+                          fill="none"
+                          stroke="#FFFFFF"
+                          strokeWidth=".7"
+                          strokeOpacity={active ? 0.72 : adjacent ? 0.42 : 0.18}
+                          pointerEvents="none"
+                        />
                         <g transform={`translate(${point.x} ${point.y}) rotate(${-rotation})`}>
                           <g className="octo-sector-icon" color={item.color}>
                             <foreignObject x="-10" y="-24" width="20" height="20">
@@ -356,7 +388,6 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
                 </g>
               </g>
 
-              <circle className="octo-apex-orb" cx="180" cy="16" r="5" />
             </svg>
             <div className="octo-wheel-hint"><span className="octo-rotate-glyph">↻</span> ROTATE TO EXPLORE</div>
           </div>
