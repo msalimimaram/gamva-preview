@@ -104,7 +104,7 @@ export default function App() {
     [cart],
   )
 
-  const showNav = !["splash", "onboarding", "auth"].includes(screen)
+  const showNav = !["splash", "onboarding", "auth", "product", "cart", "comparison", "report", "loyalty"].includes(screen)
 
   const activeTab = NAV_SCREENS.includes(screen) ? screen : ""
 
