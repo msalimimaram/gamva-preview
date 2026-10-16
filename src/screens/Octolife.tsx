@@ -122,7 +122,7 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
   const [goalDraft, setGoalDraft] = useState("")
   const [showGoalForm, setShowGoalForm] = useState(false)
   const [message, setMessage] = useState("")
-  const drag = useRef<{ angle: number; rotation: number; moved: boolean; x: number; y: number; tapIndex?: number } | null>(null)
+  const drag = useRef<{ angle: number; rotation: number; moved: boolean; x: number; y: number; tapIndex?: number; accumulated: number } | null>(null)
   const didDrag = useRef(false)
   const dimension = dimensions[selectedIndex]
   const DimensionIcon = dimension.icon
@@ -149,7 +149,7 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
   const startRotate = (event: ReactPointerEvent<SVGSVGElement>) => {
     const sector = event.target instanceof Element ? event.target.closest("[data-dimension-index]") : null
     const tapIndex = sector ? Number(sector.getAttribute("data-dimension-index")) : undefined
-    drag.current = { angle: pointerAngle(event), rotation, moved: false, x: event.clientX, y: event.clientY, tapIndex }
+    drag.current = { angle: pointerAngle(event), rotation, moved: false, x: event.clientX, y: event.clientY, tapIndex, accumulated: 0 }
     didDrag.current = false
     event.currentTarget.setPointerCapture(event.pointerId)
   }
@@ -166,13 +166,18 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
     let delta = angle - drag.current.angle
     if (delta > 180) delta -= 360
     if (delta < -180) delta += 360
-    setRotation(drag.current.rotation + delta)
+    // Dampen pointer samples and cap angular travel to prevent uncontrolled spinning.
+    const dampedDelta = Math.max(-7, Math.min(7, delta * 0.62))
+    drag.current.accumulated = Math.max(-67.5, Math.min(67.5, drag.current.accumulated + dampedDelta))
+    drag.current.angle = angle
+    setRotation(drag.current.rotation + drag.current.accumulated)
   }
 
   const finishRotate = () => {
     if (!drag.current) return
     if (drag.current.moved) {
-      const index = ((Math.round(-rotation / 45) % 8) + 8) % 8
+      const settledRotation = drag.current.rotation + drag.current.accumulated
+      const index = ((Math.round(-settledRotation / 45) % 8) + 8) % 8
       setSelectedIndex(index)
       setRotation(-index * 45)
       setMessage("")
@@ -249,7 +254,7 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
               onPointerMove={moveRotate}
               onPointerUp={finishRotate}
               onPointerCancel={finishRotate}
-              style={{ touchAction: "none" }}
+              style={{ touchAction: "pan-y", userSelect: "none" }}
             >
               <g transform={`rotate(${rotation} 160 160)`} style={{ transition: drag.current?.moved ? "none" : "transform 420ms cubic-bezier(.2,.8,.2,1)" }}>
                 {dimensions.map((item, index) => {
