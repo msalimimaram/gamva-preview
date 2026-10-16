@@ -1,6 +1,8 @@
 import { useState } from "react"
 import {
   Settings,
+  Sun,
+  Moon,
   Edit2,
   ChevronRight,
   Bell,
@@ -24,6 +26,8 @@ interface ProfileProps {
   onRoleChange: (role: Role) => void
   onLogout: () => void
   onNavigate: (screen: Screen) => void
+  theme: "dark" | "light"
+  onToggleTheme: () => void
 }
 
 const menuGroups = [
@@ -63,6 +67,8 @@ export default function Profile({
   onRoleChange,
   onLogout,
   onNavigate,
+  theme,
+  onToggleTheme,
 }: ProfileProps) {
   const [showReferral, setShowReferral] = useState(false)
   const [status, setStatus] = useState("")
@@ -80,8 +86,8 @@ export default function Profile({
 
   return (
     <div
-      className="flex flex-col h-full overflow-hidden"
-      style={{ background: "#080810" }}
+      className="screen profile-screen flex flex-col h-full overflow-hidden"
+      style={{ background: "var(--background)" }}
     >
       <div
         style={{
@@ -94,7 +100,7 @@ export default function Profile({
 
       <div className="flex-1 overflow-y-auto hide-scrollbar">
         {/* Hero section */}
-        <div style={{ padding: "54px 20px 24px", textAlign: "center" }}>
+        <div className="profile-hero" style={{ padding: "34px 20px 24px", textAlign: "center" }}>
           <div
             style={{
               position: "relative",
@@ -112,10 +118,13 @@ export default function Profile({
                 alignItems: "center",
                 justifyContent: "center",
                 boxShadow: "0 0 30px rgba(108,60,225,0.4)",
-                fontSize: 40,
+                fontSize: 34,
+                color: "#FFFFFF",
+                fontFamily: "Outfit",
+                fontWeight: 800,
               }}
             >
-              👤
+              JC
             </div>
             <div
               style={{
@@ -196,6 +205,7 @@ export default function Profile({
 
         {/* Stats strip */}
         <div
+          className="profile-stats"
           style={{
             margin: "0 20px 20px",
             display: "grid",
@@ -236,8 +246,32 @@ export default function Profile({
           ))}
         </div>
 
+        {/* Appearance preferences */}
+        <div className="profile-section" style={{ margin: "0 20px 20px" }}>
+          <GlassCard className="profile-theme-card p-4">
+            <div className="profile-theme-copy">
+              <div className="profile-theme-icon">{theme === "dark" ? <Moon size={19} /> : <Sun size={19} />}</div>
+              <div>
+                <h3>Appearance</h3>
+                <p>{theme === "dark" ? "Dark mode · Neon at night" : "Light mode · Clear by day"}</p>
+              </div>
+            </div>
+            <button
+              type="button"
+              className={theme === "light" ? "profile-theme-switch is-light" : "profile-theme-switch"}
+              onClick={onToggleTheme}
+              role="switch"
+              aria-checked={theme === "light"}
+              aria-label="Toggle light and dark mode"
+            >
+              <span />
+              <small>{theme === "dark" ? "DARK" : "LIGHT"}</small>
+            </button>
+          </GlassCard>
+        </div>
+
         {/* Role switch */}
-        <div style={{ margin: "0 20px 20px" }}>
+        <div className="profile-section" style={{ margin: "0 20px 20px" }}>
           <GlassCard className="p-4">
             <div
               style={{
@@ -311,7 +345,7 @@ export default function Profile({
 
         {/* Menu groups */}
         {menuGroups.map((group, gi) => (
-          <div key={gi} style={{ margin: "0 20px 20px" }}>
+          <div className="profile-section" key={gi} style={{ margin: "0 20px 20px" }}>
             <p
               style={{
                 fontFamily: "Outfit",
