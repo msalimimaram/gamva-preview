@@ -2577,3 +2577,94 @@ html[data-theme="light"] .octolife-screen .octo-dimension-detail {
   stroke:var(--dimension-color, #B995FF);
 }
 .octolife-screen .octo-wheel-hint { bottom:1px; }
+
+
+/* Octolife final art direction: richer mineral color, restrained depth, one quiet hover cue. */
+.octolife-screen .octo-wheel-sector {
+  --gem-color: #A78BFA;
+  color: var(--gem-color);
+}
+.octolife-screen .octo-wheel-sector[data-dimension-index="0"] { --gem-color:#B79AFF; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="1"] { --gem-color:#F4C86A; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="2"] { --gem-color:#D9A441; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="3"] { --gem-color:#FF956B; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="4"] { --gem-color:#FF648A; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="5"] { --gem-color:#6FA8FF; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="6"] { --gem-color:#9B8AFF; }
+.octolife-screen .octo-wheel-sector[data-dimension-index="7"] { --gem-color:#38DCE8; }
+
+.octolife-screen .octo-wheel-sector .octo-crystal-face {
+  fill: color-mix(in srgb, var(--gem-color) 74%, #11172e 26%) !important;
+  stroke: color-mix(in srgb, var(--gem-color) 86%, #f7f4ff 14%) !important;
+  stroke-opacity: .76;
+  filter:
+    drop-shadow(0 2px 1px rgba(0,0,0,.7))
+    drop-shadow(0 5px 5px rgba(0,0,0,.42))
+    drop-shadow(0 -1px 1px rgba(255,255,255,.14));
+  transition: fill .28s ease, fill-opacity .28s ease, stroke .28s ease,
+    stroke-opacity .28s ease, filter .28s ease;
+}
+.octolife-screen .octo-wheel-sector.is-active .octo-crystal-face {
+  fill: color-mix(in srgb, var(--gem-color) 84%, #22213f 16%) !important;
+  stroke: color-mix(in srgb, var(--gem-color) 72%, #ffffff 28%) !important;
+  stroke-opacity: 1;
+  filter:
+    drop-shadow(0 0 3px color-mix(in srgb, var(--gem-color) 58%, transparent))
+    drop-shadow(0 0 9px color-mix(in srgb, var(--gem-color) 32%, transparent))
+    drop-shadow(0 4px 2px rgba(0,0,0,.76))
+    drop-shadow(0 -1px 1px rgba(255,255,255,.26));
+}
+.octolife-screen .octo-wheel-sector.is-adjacent .octo-crystal-face {
+  fill: color-mix(in srgb, var(--gem-color) 68%, #11172e 32%) !important;
+  stroke: color-mix(in srgb, var(--gem-color) 76%, #dbe7ff 24%) !important;
+  stroke-opacity: .82;
+  filter: drop-shadow(0 3px 2px rgba(0,0,0,.68)) drop-shadow(0 -1px 1px rgba(255,255,255,.15));
+}
+
+/* Natural internal inclusions: a deeper mineral seam, not a bright decorative stripe. */
+.octolife-screen .octo-wheel-sector .octo-crystal-vein {
+  stroke: color-mix(in srgb, var(--gem-color) 62%, #11172b 38%) !important;
+  stroke-opacity: .38 !important;
+  stroke-width: .7 !important;
+  filter: drop-shadow(0 0 1px color-mix(in srgb, var(--gem-color) 25%, transparent));
+  mix-blend-mode: normal;
+}
+.octolife-screen .octo-wheel-sector .octo-crystal-vein-fine {
+  stroke: #f8f4ff !important;
+  stroke-opacity: .17 !important;
+  stroke-width: .42 !important;
+  filter: none;
+}
+.octolife-screen .octo-wheel-sector.is-active .octo-crystal-vein {
+  stroke: color-mix(in srgb, var(--gem-color) 50%, #211c3a 50%) !important;
+  stroke-opacity: .72 !important;
+  stroke-width: 1.05 !important;
+  filter: drop-shadow(0 0 1.5px color-mix(in srgb, var(--gem-color) 30%, transparent));
+}
+.octolife-screen .octo-wheel-sector.is-active .octo-crystal-vein-fine {
+  stroke-opacity: .32 !important;
+}
+
+/* A small tactile lift only on the first stone; no layout or wheel behavior changes. */
+.octolife-screen .octo-wheel-sector[data-dimension-index="0"] .octo-crystal-face {
+  transition: filter .26s ease, fill .26s ease, stroke .26s ease;
+}
+.octolife-screen .octo-wheel-sector[data-dimension-index="0"]:hover .octo-crystal-face,
+.octolife-screen .octo-wheel-sector[data-dimension-index="0"]:focus-visible .octo-crystal-face {
+  fill: color-mix(in srgb, #B79AFF 88%, #ffffff 12%) !important;
+  stroke: #E5D9FF !important;
+  filter:
+    drop-shadow(0 0 4px rgba(183,154,255,.62))
+    drop-shadow(0 0 12px rgba(183,154,255,.3))
+    drop-shadow(0 5px 3px rgba(0,0,0,.72))
+    drop-shadow(0 -1px 1px rgba(255,255,255,.3));
+}
+.octolife-screen .octo-wheel-sector[data-dimension-index="0"]:hover .octo-sector-icon {
+  filter: drop-shadow(0 0 5px #B79AFF) drop-shadow(0 0 11px rgba(183,154,255,.6));
+}
+@media (prefers-reduced-motion: reduce) {
+  .octolife-screen .octo-wheel-sector .octo-crystal-face,
+  .octolife-screen .octo-wheel-sector .octo-crystal-vein {
+    transition: none !important;
+  }
+}
