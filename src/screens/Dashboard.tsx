@@ -249,7 +249,7 @@ export default function Dashboard({ role, onNavigate }: DashboardProps) {
         {/* Wellness Card */}
         <GlassCard
           glow="purple"
-          className="p-5"
+          className="dashboard-score-card p-5"
           style={{
             background:
               "linear-gradient(135deg, rgba(108,60,225,0.25) 0%, rgba(0,229,255,0.1) 100%)",
