@@ -174,7 +174,7 @@ export default function App() {
             <ReportBuilder onBack={() => navigate("insights")} />
           )}
 
-          {screen === "loyalty" && <Loyalty />}
+          {screen === "loyalty" && <Loyalty onBack={() => navigate("dashboard")} />}
 
           {screen === "profile" && (
             <Profile
