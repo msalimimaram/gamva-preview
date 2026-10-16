@@ -71,6 +71,12 @@ export default function Profile({
 }: ProfileProps) {
   const [showReferral, setShowReferral] = useState(false)
   const [status, setStatus] = useState("")
+  const [displayName, setDisplayName] = useState("Jordan Clarke")
+  const [email, setEmail] = useState("jordan@example.com")
+  const [editingProfile, setEditingProfile] = useState(false)
+  const [draftName, setDraftName] = useState("Jordan Clarke")
+  const [draftEmail, setDraftEmail] = useState("jordan@example.com")
+  const initials = displayName.split(/\s+/).map((part) => part[0] ?? "").join("").slice(0, 2).toUpperCase()
 
   if (showReferral) {
     return <GiftReferral onBack={() => setShowReferral(false)} />
@@ -123,7 +129,7 @@ export default function Profile({
                 fontWeight: 800,
               }}
             >
-              JC
+              {initials}
             </div>
             <div
               style={{
@@ -154,7 +160,7 @@ export default function Profile({
               margin: "0 0 4px",
             }}
           >
-            Jordan Clarke
+            {displayName}
           </h2>
           <p
             style={{
@@ -164,7 +170,7 @@ export default function Profile({
               margin: "0 0 12px",
             }}
           >
-            jordan@example.com
+            {email}
           </p>
 
           <div
@@ -365,10 +371,15 @@ export default function Profile({
                     onClick={() => {
                       if (action === "referral") setShowReferral(true)
                       else if (label === "Loyalty Hub") onNavigate("loyalty")
-                      else
-                        setStatus(
-                          `${label} is not connected in this prototype.`,
-                        )
+                      else if (label === "Edit Profile") {
+                        setDraftName(displayName)
+                        setDraftEmail(email)
+                        setEditingProfile(true)
+                      } else if (label === "Share GAMva") {
+                        setStatus("Share your GAMva journey with someone who could use a little encouragement.")
+                      } else {
+                        setStatus(`${label} is a preview control; account services are not connected yet.`)
+                      }
                     }}
                     style={{
                       width: "100%",
@@ -460,6 +471,19 @@ export default function Profile({
           </button>
         </div>
       </div>
+      {editingProfile && (
+        <div className="profile-modal-overlay" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) setEditingProfile(false) }}>
+          <form className="profile-edit-modal" role="dialog" aria-modal="true" aria-labelledby="profile-edit-title" onSubmit={(event) => { event.preventDefault(); if (!draftName.trim() || !draftEmail.trim()) return; setDisplayName(draftName.trim()); setEmail(draftEmail.trim()); setEditingProfile(false); setStatus("Profile details updated in this preview.") }}>
+            <button type="button" className="profile-edit-close" onClick={() => setEditingProfile(false)} aria-label="Close edit profile">×</button>
+            <p className="octo-eyebrow">YOUR ACCOUNT</p>
+            <h2 id="profile-edit-title">Edit profile</h2>
+            <label>Display name<input value={draftName} onChange={(event) => setDraftName(event.target.value)} maxLength={60} required /></label>
+            <label>Email address<input type="email" value={draftEmail} onChange={(event) => setDraftEmail(event.target.value)} maxLength={120} required /></label>
+            <p className="profile-edit-note">Changes are saved locally in this preview session.</p>
+            <button type="submit" className="profile-edit-save">Save changes</button>
+          </form>
+        </div>
+      )}
     </div>
   )
 }
