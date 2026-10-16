@@ -98,11 +98,13 @@ function polar(cx: number, cy: number, radius: number, degrees: number) {
 }
 
 function segmentPath(index: number) {
-  const start = -112.5 + index * 45
-  const end = start + 45
-  const a = polar(160, 160, 145, start)
-  const b = polar(160, 160, 145, end)
-  return `M 160 160 L ${a.x} ${a.y} A 145 145 0 0 1 ${b.x} ${b.y} Z`
+  const start = -112.5 + index * 45 + 1.8
+  const end = start + 41.4
+  const outerStart = polar(160, 160, 145, start)
+  const outerEnd = polar(160, 160, 145, end)
+  const innerEnd = polar(160, 160, 82, end)
+  const innerStart = polar(160, 160, 82, start)
+  return `M ${outerStart.x} ${outerStart.y} A 145 145 0 0 1 ${outerEnd.x} ${outerEnd.y} L ${innerEnd.x} ${innerEnd.y} A 82 82 0 0 0 ${innerStart.x} ${innerStart.y} Z`
 }
 
 interface OctolifeProps {
@@ -260,35 +262,36 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
                 {dimensions.map((item, index) => {
                   const active = index === selectedIndex
                   const mid = -90 + index * 45
-                  const point = polar(160, 160, 99, mid)
+                  const point = polar(160, 160, 112, mid)
                   const Icon = item.icon
                   return (
                     <g key={item.id} data-dimension-index={index} onClick={() => { if (!didDrag.current) rotateTo(index) }} className="octo-wheel-sector" role="button" aria-label={`Select ${item.name}, ${item.progress}% progress`} tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); rotateTo(index) } }}>
-                      <path d={segmentPath(index)} fill={item.color} fillOpacity={active ? 0.28 : 0.105} stroke={item.color} strokeOpacity={active ? 0.95 : 0.38} strokeWidth={active ? 2.4 : 1.1} />
+                      <path className={active ? "octo-sector-glass is-active" : "octo-sector-glass"} d={segmentPath(index)} fill={item.color} fillOpacity={active ? 0.34 : 0.055} stroke={item.color} strokeOpacity={active ? 1 : 0.2} strokeWidth={active ? 2.5 : 0.85} />
                       <path d={segmentPath(index)} fill="transparent" stroke="transparent" strokeWidth="12" />
                       <g transform={`translate(${point.x} ${point.y}) rotate(${-rotation})`}>
-                        <circle r={active ? 22 : 19} fill={active ? item.color : "#141420"} fillOpacity={active ? 0.2 : 0.96} stroke={item.color} strokeOpacity={active ? 0.95 : 0.5} strokeWidth={active ? 1.8 : 1} />
-                        <g transform="translate(-9 -9)" color={item.color}>
-                          <foreignObject x="0" y="0" width="18" height="18">
-                            <div className="octo-svg-icon"><Icon size={18} /></div>
-                          </foreignObject>
+                        <g className={active ? "octo-sector-content is-active" : "octo-sector-content"} color={item.color}>
+                          <foreignObject x="-10" y="-18" width="20" height="20"><div className="octo-svg-icon"><Icon size={19} /></div></foreignObject>
                         </g>
-                        <text y="36" textAnchor="middle" fill={active ? "#FFFFFF" : "rgba(245,245,255,.82)"} fontSize={item.name === "Personal Growth" || item.name === "Challenge & Joy" ? 8.2 : 9.5} fontWeight={active ? 800 : 600} letterSpacing=".2">{item.short}</text>
-                        <text y="48" textAnchor="middle" fill={item.color} fontSize="9" fontWeight="800">{item.progress}%</text>
+                        <text y="14" textAnchor="middle" fill={active ? "#FFFFFF" : "rgba(203,213,245,.55)"} fontSize={item.name === "Personal Growth" || item.name === "Challenge & Joy" ? 7.2 : 8.5} fontWeight={active ? 800 : 500} letterSpacing=".15">{item.short}</text>
+                        <text y="26" textAnchor="middle" fill={active ? item.color : "rgba(148,163,184,.48)"} fontSize="8" fontWeight="700">{item.progress}%</text>
                       </g>
                     </g>
                   )
                 })}
               </g>
-              <circle cx="160" cy="160" r="49" fill="#090911" stroke="rgba(255,255,255,.16)" strokeWidth="1.2" />
-              <circle cx="160" cy="160" r="43" fill="url(#octoCenterGlow)" />
+              <circle cx="160" cy="160" r="76" fill="#070b19" stroke="rgba(145,128,255,.28)" strokeWidth="1.2" />
+              <circle cx="160" cy="160" r="69" fill="url(#octoCenterGlow)" />
+              <circle cx="160" cy="160" r="58" fill="none" stroke="rgba(148,163,184,.12)" strokeWidth="1" strokeDasharray="2 5" />
+              <circle className="octo-apex-orb" cx="160" cy="14" r="5" />
               <defs>
                 <radialGradient id="octoCenterGlow"><stop offset="0%" stopColor="#6C3CE1" stopOpacity=".42" /><stop offset="100%" stopColor="#080810" stopOpacity="0" /></radialGradient>
               </defs>
               <g pointerEvents="none">
-                <text x="160" y="151" textAnchor="middle" fill="#FFFFFF" fontSize="11" fontWeight="800" letterSpacing="1.1">OCTO</text>
-                <text x="160" y="166" textAnchor="middle" fill="#00E5FF" fontSize="11" fontWeight="800" letterSpacing="1.1">LIFE</text>
-                <text x="160" y="181" textAnchor="middle" fill="rgba(245,245,255,.58)" fontSize="7.5" letterSpacing=".4">ONE YOU · 8 SIDES</text>
+                <text x="160" y="140" textAnchor="middle" fill="rgba(167,139,250,.9)" fontSize="7.5" fontWeight="700" letterSpacing="1.6">OVERALL</text>
+                <text x="160" y="164" textAnchor="middle" fill="#FFFFFF" fontSize="24" fontWeight="700">{overallProgress}%</text>
+                <text x="160" y="181" textAnchor="middle" fill="rgba(226,232,240,.82)" fontSize="8.5">Progress</text>
+                <path d="M 135 190 H 185" stroke="url(#octoCenterLine)" strokeWidth="2.5" strokeLinecap="round" />
+                <defs><linearGradient id="octoCenterLine"><stop stopColor="#8B5CF6"/><stop offset="1" stopColor="#00E5FF"/></linearGradient></defs>
               </g>
             </svg>
             <div className="octo-wheel-hint"><span className="octo-rotate-glyph">↻</span> DRAG TO EXPLORE</div>
