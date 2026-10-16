@@ -63,7 +63,8 @@ body {
   color: var(--foreground);
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
+  /* Allow the app to scroll when the viewport is smaller than the app frame */
+  overflow: auto;
 }
 
 button, input, select {
@@ -102,7 +103,9 @@ button:disabled {
 
 .app-frame {
   width: min(100%, 1180px);
+  /* allow the frame to scale down on small viewports while keeping a sensible max height */
   height: min(100%, 940px);
+  max-height: calc(100vh - 32px);
   min-height: 0;
   position: relative;
   overflow: hidden;
@@ -114,10 +117,11 @@ button:disabled {
   box-shadow: 0 32px 90px rgba(0, 0, 0, 0.55);
 }
 
+/* Make the main content area scroll when needed instead of hiding overflow */
 .app-content {
   min-height: 0;
   flex: 1;
-  overflow: hidden;
+  overflow: auto;
   display: flex;
   flex-direction: column;
 }
@@ -323,8 +327,36 @@ button:disabled {
 
 .bottom-nav__item:hover { background: var(--muted); color: var(--foreground); }
 .bottom-nav__item.is-active { color: var(--accent); background: rgba(0, 229, 255, 0.07); }
-.bottom-nav__cart { position: absolute; right: -58px; width: 44px; height: 44px; border-radius: 14px; border: 1px solid var(--border); color: var(--foreground); background: var(--surface-elevated); display: grid; place-items: center; cursor: pointer; }
-.bottom-nav__cart span { position: absolute; top: -5px; right: -5px; min-width: 18px; height: 18px; padding: 0 4px; display: grid; place-items: center; border-radius: 9px; background: var(--primary); color: white; font-size: 10px; }
+/* Ensure the cart button stays within the nav area and is centered vertically */
+.bottom-nav__cart {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  background: var(--surface-elevated);
+  display: grid;
+  place-items: center;
+}
+.bottom-nav__cart span {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: var(--primary);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+}
 
 .app-toast {
   position: absolute;
@@ -452,7 +484,7 @@ h1, h2, h3, h4, h5, h6 {
   .app-frame { border: 0; border-radius: 0; }
   .content-grid { grid-template-columns: 1fr; }
   .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .bottom-nav__cart { right: 8px; top: -52px; }
+  .bottom-nav__cart { right: 12px; top: 8px; transform: none; }
 }
 
 @media (min-width: 761px) and (max-width: 1020px) {
