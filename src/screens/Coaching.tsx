@@ -103,8 +103,8 @@ export default function Coaching({ onNavigate }: CoachingProps) {
 
   return (
     <div
-      className="flex flex-col h-full overflow-hidden"
-      style={{ background: "#080810" }}
+      className="screen coaching-screen flex flex-col h-full overflow-hidden"
+      style={{ background: "var(--background)" }}
     >
       <div
         style={{
