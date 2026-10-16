@@ -70,6 +70,7 @@ export default function Profile({
   onToggleTheme,
 }: ProfileProps) {
   const [showReferral, setShowReferral] = useState(false)
+  const [activeProfileTab, setActiveProfileTab] = useState("Moments")
   const [status, setStatus] = useState("")
   const [displayName, setDisplayName] = useState("Jordan Clarke")
   const [email, setEmail] = useState("jordan@example.com")
@@ -250,6 +251,35 @@ export default function Profile({
             </GlassCard>
           ))}
         </div>
+
+        {/* Life in frames — a personal, social-first profile experience */}
+        <section className="profile-moments" aria-label="Life moments">
+          <div className="profile-moments-heading">
+            <div><span className="profile-kicker">YOUR LIFE, IN MOTION</span><h3>Little moments. <em>Real growth.</em></h3></div>
+            <button type="button" className="profile-create-moment" onClick={() => setStatus("Moment creation is ready for the next product iteration.")}>＋ <span>Share a moment</span></button>
+          </div>
+          <div className="profile-story-row">
+            <button type="button" className="profile-story profile-story-add" onClick={() => setStatus("Your story composer is a preview interaction.")}><span className="profile-story-ring"><span>＋</span></span><small>Your story</small></button>
+            {[
+              {name:"Maya",art:"sunrise",emoji:"🌅"},
+              {name:"Alex",art:"ocean",emoji:"🌊"},
+              {name:"Sam",art:"bloom",emoji:"🌱"},
+              {name:"Noah",art:"summit",emoji:"⛰️"},
+            ].map((story) => <button type="button" className="profile-story" key={story.name} onClick={() => setStatus(`${story.name}'s story is part of the social preview.`)}><span className={`profile-story-ring story-${story.art}`}><span>{story.emoji}</span></span><small>{story.name}</small></button>)}
+          </div>
+          <div className="profile-moment-tabs" role="tablist" aria-label="Profile content">
+            {["Moments","Journey","Saved"].map(tab => <button key={tab} type="button" role="tab" aria-selected={activeProfileTab === tab} className={activeProfileTab === tab ? "is-active" : ""} onClick={() => setActiveProfileTab(tab)}>{tab}</button>)}
+          </div>
+          {activeProfileTab === "Moments" && <div className="profile-moment-grid">
+            <button type="button" className="profile-moment-tile moment-mountain" onClick={() => setStatus("A quiet morning, a clearer mind. Moment detail is a preview.")}><span className="moment-tag">MIND · 7:12 AM</span><span className="moment-art-emoji">☀</span><strong>Making space to breathe.</strong><small>♡ 128&nbsp; · &nbsp;12 comments</small></button>
+            <button type="button" className="profile-moment-tile moment-workout" onClick={() => setStatus("Progress is built one rep at a time. Moment detail is a preview.")}><span className="moment-tag">HEALTH · DAY 12</span><span className="moment-art-emoji">✦</span><strong>Showed up for myself.</strong><small>♡ 86&nbsp; · &nbsp;8 comments</small></button>
+            <button type="button" className="profile-moment-tile moment-journal" onClick={() => setStatus("Three good things, captured. Moment detail is a preview.")}><span className="moment-tag">JOURNAL · TODAY</span><span className="moment-art-emoji">✎</span><strong>Three things going right.</strong><small>♡ 54&nbsp; · &nbsp;5 comments</small></button>
+            <button type="button" className="profile-moment-tile moment-community" onClick={() => onNavigate("social")}><span className="moment-tag">COMMUNITY · KINDNESS</span><span className="moment-art-emoji">♡</span><strong>Good grows when shared.</strong><small>♡ 203&nbsp; · &nbsp;21 comments</small></button>
+          </div>}
+          {activeProfileTab === "Journey" && <div className="profile-journey-card"><div className="journey-orb">✧</div><div><span className="profile-kicker">YOUR PERSONAL EVOLUTION</span><h4>12 days of showing up</h4><p>Small promises kept are becoming a way of life.</p><div className="journey-meter"><span /></div><small>12-day streak · 4 dimensions in focus</small></div></div>}
+          {activeProfileTab === "Saved" && <div className="profile-saved-card"><span>✧</span><div><strong>Keep what moves you.</strong><p>Save meaningful moments, ideas, and milestones here as you explore GAMva.</p></div></div>}
+          {status && <div className="profile-moment-status" role="status">{status}<button type="button" onClick={() => setStatus("")} aria-label="Dismiss message">×</button></div>}
+        </section>
 
         {/* Appearance preferences */}
         <div className="profile-section" style={{ margin: "0 20px 20px" }}>
