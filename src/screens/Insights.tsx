@@ -34,9 +34,9 @@ const fullData = Array.from({ length: 12 }, (_, index) => ({
 }))
 
 const ranges = {
-  "7D": 3,
-  "1M": 4,
-  "3M": 6,
+  "1M": 1,
+  "3M": 3,
+  "6M": 6,
   "1Y": 12,
 } as const
 
@@ -60,7 +60,7 @@ export default function Insights({ onNavigate }: InsightsProps) {
       <PageHeader
         eyebrow="PERFORMANCE"
         title="Insights"
-        description="Responsive sample analytics with working period filters."
+        description="A clear view of your wellness trends over time."
         actions={
           <Button variant="secondary" onClick={() => onNavigate("report")}>
             <FileText size={17} /> Build report
