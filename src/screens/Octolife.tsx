@@ -10,6 +10,7 @@ import {
   ChevronRight,
   CircleDollarSign,
   Flame,
+  Flower2,
   Heart,
   HeartHandshake,
   LockKeyhole,
@@ -21,6 +22,7 @@ import {
   ShoppingBag,
 } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
+import octolifeScene from "../../publish/octolife-scene.jpg"
 import type { Screen } from "../types"
 
 type Dimension = {
@@ -37,14 +39,15 @@ type Dimension = {
 }
 
 const dimensions: Dimension[] = [
-  { id: "health", name: "Health", short: "HEALTH", subtitle: "A stronger body. More energy for the life you want.", color: "#00E5FF", icon: Heart, progress: 68, focus: "Move with intention", routine: "20 minutes of movement", hint: "Small steps today make strength sustainable." },
-  { id: "learning", name: "Learning", short: "LEARN", subtitle: "Stay curious. Turn knowledge into capability.", color: "#8B7CFF", icon: BookOpen, progress: 54, focus: "Learn something useful", routine: "Read or practice for 15 minutes", hint: "Consistency beats the perfect study session." },
-  { id: "finance", name: "Finance", short: "MONEY", subtitle: "Build clarity, confidence, and healthier money habits.", color: "#FFD166", icon: CircleDollarSign, progress: 42, focus: "Know where it goes", routine: "Review today's spending", hint: "Awareness is the first step toward control." },
-  { id: "growth", name: "Personal Growth", short: "GROWTH", subtitle: "Build the skills and mindset your next chapter needs.", color: "#FF79B0", icon: Sparkles, progress: 73, focus: "Invest in yourself", routine: "Practice one growth skill", hint: "You do not have to become someone else to grow." },
+  // Visual order is intentional: Mind at the apex, Health to the left, Growth to the right.
+  { id: "wellbeing", name: "Mind & Wellbeing", short: "MIND", subtitle: "Make space for calm, recovery, and emotional balance.", color: "#A875FF", icon: Flower2, progress: 76, focus: "Check in with yourself", routine: "Take five mindful minutes", hint: "Rest is part of progress, not the opposite of it." },
+  { id: "growth", name: "Personal Growth", short: "GROWTH", subtitle: "Build the skills and mindset your next chapter needs.", color: "#E8B86A", icon: Target, progress: 73, focus: "Invest in yourself", routine: "Practice one growth skill", hint: "You do not have to become someone else to grow." },
+  { id: "finance", name: "Finance", short: "MONEY", subtitle: "Build clarity, confidence, and healthier money habits.", color: "#D2A75D", icon: CircleDollarSign, progress: 42, focus: "Know where it goes", routine: "Review today's spending", hint: "Awareness is the first step toward control." },
   { id: "career", name: "Career", short: "CAREER", subtitle: "Create meaningful progress in your work and ambitions.", color: "#FF9B62", icon: BriefcaseBusiness, progress: 61, focus: "Move one thing forward", routine: "Take one focused career step", hint: "A small action can unlock meaningful momentum." },
-  { id: "wellbeing", name: "Mind & Wellbeing", short: "MIND", subtitle: "Make space for calm, recovery, and emotional balance.", color: "#65E6B8", icon: Brain, progress: 76, focus: "Check in with yourself", routine: "Take five mindful minutes", hint: "Rest is part of progress, not the opposite of it." },
   { id: "joy", name: "Challenge & Joy", short: "JOY", subtitle: "Make room for play, discovery, and new experiences.", color: "#FF6B6B", icon: Flame, progress: 49, focus: "Do something energizing", routine: "Spend 15 minutes on something fun", hint: "A life well lived needs moments of delight." },
   { id: "courage", name: "Overcoming Fears", short: "COURAGE", subtitle: "Face fear in small, supported steps, at your own pace.", color: "#72A7FF", icon: LockKeyhole, progress: 37, focus: "Take one brave small step", routine: "Do one thing you have been postponing", hint: "Courage is action with fear beside you." },
+  { id: "learning", name: "Learning", short: "LEARN", subtitle: "Stay curious. Turn knowledge into capability.", color: "#8B7CFF", icon: BookOpen, progress: 54, focus: "Learn something useful", routine: "Read or practice for 15 minutes", hint: "Consistency beats the perfect study session." },
+  { id: "health", name: "Health", short: "HEALTH", subtitle: "A stronger body. More energy for the life you want.", color: "#00E5FF", icon: Brain, progress: 68, focus: "Move with intention", routine: "20 minutes of movement", hint: "Small steps today make strength sustainable." },
 ]
 
 const checklistByDimension: Record<string, { id: string; title: string; detail: string; time: string }[]> = {
@@ -98,11 +101,13 @@ function polar(cx: number, cy: number, radius: number, degrees: number) {
 }
 
 function segmentPath(index: number) {
-  const start = -112.5 + index * 45
-  const end = start + 45
-  const a = polar(160, 160, 145, start)
-  const b = polar(160, 160, 145, end)
-  return `M 160 160 L ${a.x} ${a.y} A 145 145 0 0 1 ${b.x} ${b.y} Z`
+  const start = -112.5 + index * 45 + 2.2
+  const end = start + 40.6
+  const outerStart = polar(180, 220, 194, start)
+  const outerEnd = polar(180, 220, 194, end)
+  const innerEnd = polar(180, 220, 116, end)
+  const innerStart = polar(180, 220, 116, start)
+  return `M ${outerStart.x} ${outerStart.y} A 194 194 0 0 1 ${outerEnd.x} ${outerEnd.y} L ${innerEnd.x} ${innerEnd.y} A 116 116 0 0 0 ${innerStart.x} ${innerStart.y} Z`
 }
 
 interface OctolifeProps {
@@ -141,9 +146,9 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
 
   const pointerAngle = (event: ReactPointerEvent<SVGSVGElement>) => {
     const rect = event.currentTarget.getBoundingClientRect()
-    const x = ((event.clientX - rect.left) / rect.width) * 320
-    const y = ((event.clientY - rect.top) / rect.height) * 320
-    return Math.atan2(y - 160, x - 160) * (180 / Math.PI)
+    const x = ((event.clientX - rect.left) / rect.width) * 360
+    const y = ((event.clientY - rect.top) / rect.height) * 220
+    return Math.atan2(y - 220, x - 180) * (180 / Math.PI)
   }
 
   const startRotate = (event: ReactPointerEvent<SVGSVGElement>) => {
@@ -231,71 +236,134 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
       </header>
 
       <div className="octo-main-scroll">
-        <section className="octo-intro">
-          <div>
-            <p className="octo-eyebrow"><span className="octo-live-dot" /> OCTOLIFE · 8 DIMENSIONS</p>
-            <h1>Your life, <span>in balance.</span></h1>
-            <p className="octo-subtitle">You don't have to change everything today. Just choose your next small step.</p>
+        <section
+          className="octo-hero-stage"
+          aria-label="Interactive Octolife dial"
+          style={{ "--octo-scene-image": `url("${octolifeScene}")` } as CSSProperties}
+        >
+          <div className="octo-stage-topline">
+            <div>
+              <p className="octo-eyebrow"><span className="octo-live-dot" /> OCTOLIFE · 8 DIMENSIONS</p>
+              <p className="octo-stage-caption">Eight dimensions. One life.</p>
+            </div>
+            <div className="octo-overall-pill octo-overall-compact">
+              <span className="octo-overall-ring">{overallProgress}%</span>
+              <span><b>Overall</b><small>life progress</small></span>
+            </div>
           </div>
-          <div className="octo-overall-pill"><span className="octo-overall-ring">{overallProgress}</span><span><b>Life balance</b><small>Preview · 8 dimensions</small></span></div>
-        </section>
 
-        <section className="octo-wheel-layout" aria-label="Interactive Octolife wheel">
           <div className="octo-wheel-wrap">
             <div className="octo-wheel-orbit octo-orbit-one" />
-            <div className="octo-wheel-orbit octo-orbit-two" />
             <div className="octo-wheel-glow" style={{ background: dimension.color }} />
             <svg
               className="octo-wheel"
-              viewBox="0 0 320 320"
+              viewBox="0 0 360 220"
               role="group"
-              aria-label="Rotate or select one of the eight life dimensions"
+              aria-label="Rotate the Octolife dial or select one of the eight life dimensions"
               onPointerDown={startRotate}
               onPointerMove={moveRotate}
               onPointerUp={finishRotate}
               onPointerCancel={finishRotate}
-              style={{ touchAction: "pan-y", userSelect: "none" }}
+              style={{ touchAction: "none", userSelect: "none" }}
             >
-              <g transform={`rotate(${rotation} 160 160)`} style={{ transition: drag.current?.moved ? "none" : "transform 420ms cubic-bezier(.2,.8,.2,1)" }}>
-                {dimensions.map((item, index) => {
-                  const active = index === selectedIndex
-                  const mid = -90 + index * 45
-                  const point = polar(160, 160, 99, mid)
-                  const Icon = item.icon
-                  return (
-                    <g key={item.id} data-dimension-index={index} onClick={() => { if (!didDrag.current) rotateTo(index) }} className="octo-wheel-sector" role="button" aria-label={`Select ${item.name}, ${item.progress}% progress`} tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); rotateTo(index) } }}>
-                      <path d={segmentPath(index)} fill={item.color} fillOpacity={active ? 0.28 : 0.105} stroke={item.color} strokeOpacity={active ? 0.95 : 0.38} strokeWidth={active ? 2.4 : 1.1} />
-                      <path d={segmentPath(index)} fill="transparent" stroke="transparent" strokeWidth="12" />
-                      <g transform={`translate(${point.x} ${point.y}) rotate(${-rotation})`}>
-                        <circle r={active ? 22 : 19} fill={active ? item.color : "#141420"} fillOpacity={active ? 0.2 : 0.96} stroke={item.color} strokeOpacity={active ? 0.95 : 0.5} strokeWidth={active ? 1.8 : 1} />
-                        <g transform="translate(-9 -9)" color={item.color}>
-                          <foreignObject x="0" y="0" width="18" height="18">
-                            <div className="octo-svg-icon"><Icon size={18} /></div>
-                          </foreignObject>
-                        </g>
-                        <text y="36" textAnchor="middle" fill={active ? "#FFFFFF" : "rgba(245,245,255,.82)"} fontSize={item.name === "Personal Growth" || item.name === "Challenge & Joy" ? 8.2 : 9.5} fontWeight={active ? 800 : 600} letterSpacing=".2">{item.short}</text>
-                        <text y="48" textAnchor="middle" fill={item.color} fontSize="9" fontWeight="800">{item.progress}%</text>
-                      </g>
-                    </g>
-                  )
-                })}
-              </g>
-              <circle cx="160" cy="160" r="49" fill="#090911" stroke="rgba(255,255,255,.16)" strokeWidth="1.2" />
-              <circle cx="160" cy="160" r="43" fill="url(#octoCenterGlow)" />
               <defs>
-                <radialGradient id="octoCenterGlow"><stop offset="0%" stopColor="#6C3CE1" stopOpacity=".42" /><stop offset="100%" stopColor="#080810" stopOpacity="0" /></radialGradient>
+                <clipPath id="octoDialAperture">
+                  <rect x="0" y="0" width="360" height="220" />
+                </clipPath>
+                <linearGradient id="octoCrystalSheen" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#FFFFFF" stopOpacity=".23" />
+                  <stop offset="48%" stopColor="#FFFFFF" stopOpacity=".015" />
+                  <stop offset="100%" stopColor="#080D25" stopOpacity=".42" />
+                </linearGradient>
+                <radialGradient id="octoSectorBloom">
+                  <stop offset="0%" stopColor="#FFFFFF" stopOpacity=".22" />
+                  <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+                </radialGradient>
               </defs>
-              <g pointerEvents="none">
-                <text x="160" y="151" textAnchor="middle" fill="#FFFFFF" fontSize="11" fontWeight="800" letterSpacing="1.1">OCTO</text>
-                <text x="160" y="166" textAnchor="middle" fill="#00E5FF" fontSize="11" fontWeight="800" letterSpacing="1.1">LIFE</text>
-                <text x="160" y="181" textAnchor="middle" fill="rgba(245,245,255,.58)" fontSize="7.5" letterSpacing=".4">ONE YOU · 8 SIDES</text>
+
+              <g clipPath="url(#octoDialAperture)">
+                <g
+                  transform={`rotate(${rotation} 180 220)`}
+                  style={{ transition: drag.current?.moved ? "none" : "transform 430ms cubic-bezier(.2,.8,.2,1)" }}
+                >
+                  {dimensions.map((item, index) => {
+                    const active = index === selectedIndex
+                    const offset = (index - selectedIndex + dimensions.length) % dimensions.length
+                    const adjacent = offset === 1 || offset === dimensions.length - 1
+                    const point = polar(180, 220, 155, -90 + index * 45)
+                    const Icon = item.icon
+                    const segmentFill = active || adjacent ? item.color : "#10182C"
+                    const segmentOpacity = active ? 0.46 : adjacent ? 0.27 : 0.16
+                    return (
+                      <g
+                        key={item.id}
+                        data-dimension-index={index}
+                        onClick={() => { if (!didDrag.current) rotateTo(index) }}
+                        className={active ? "octo-wheel-sector is-active" : adjacent ? "octo-wheel-sector is-adjacent" : "octo-wheel-sector"}
+                        role="button"
+                        aria-label={`Select ${item.name}, ${item.progress}% progress`}
+                        tabIndex={0}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault()
+                            rotateTo(index)
+                          }
+                          if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+                            event.preventDefault()
+                            rotateTo((selectedIndex + dimensions.length - 1) % dimensions.length)
+                          }
+                          if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+                            event.preventDefault()
+                            rotateTo((selectedIndex + 1) % dimensions.length)
+                          }
+                        }}
+                      >
+                        <path
+                          className="octo-crystal-face"
+                          d={segmentPath(index)}
+                          fill={segmentFill}
+                          fillOpacity={segmentOpacity}
+                          stroke={active || adjacent ? item.color : "#53617F"}
+                          strokeOpacity={active ? 0.98 : adjacent ? 0.58 : 0.23}
+                          strokeWidth={active ? 2.1 : 1}
+                        />
+                        <path d={segmentPath(index)} fill="url(#octoCrystalSheen)" stroke="none" pointerEvents="none" />
+                        <g transform={`translate(${point.x} ${point.y}) rotate(${-rotation})`}>
+                          <g className="octo-sector-icon" color={item.color}>
+                            <foreignObject x="-10" y="-24" width="20" height="20">
+                              <div className="octo-svg-icon"><Icon size={19} strokeWidth={1.7} /></div>
+                            </foreignObject>
+                          </g>
+                          <text
+                            y="2"
+                            textAnchor="middle"
+                            fill={active || adjacent ? "#F8FAFF" : "rgba(178,190,220,.46)"}
+                            fontSize={item.short.length > 6 ? 7.1 : 8.5}
+                            fontWeight={active ? 800 : adjacent ? 650 : 500}
+                            letterSpacing=".15"
+                          >{item.short}</text>
+                          <text
+                            y="15"
+                            textAnchor="middle"
+                            fill={active || adjacent ? item.color : "rgba(148,163,184,.38)"}
+                            fontSize="7.8"
+                            fontWeight="700"
+                          >{item.progress}%</text>
+                        </g>
+                      </g>
+                    )
+                  })}
+                </g>
               </g>
+
+              <circle className="octo-apex-orb" cx="180" cy="16" r="5" />
             </svg>
-            <div className="octo-wheel-hint"><span className="octo-rotate-glyph">↻</span> DRAG TO EXPLORE</div>
+            <div className="octo-wheel-hint"><span className="octo-rotate-glyph">↻</span> ROTATE TO EXPLORE</div>
           </div>
+
           <div className="octo-dimension-detail" style={{ "--dimension-color": dimension.color } as CSSProperties}>
             <div className="octo-dimension-topline">
-              <div className="octo-dimension-icon"><DimensionIcon size={22} /></div>
+              <div className="octo-dimension-icon"><DimensionIcon size={21} /></div>
               <div className="octo-dimension-copy">
                 <p className="octo-eyebrow">DIMENSION {String(selectedIndex + 1).padStart(2, "0")} / 08</p>
                 <h2>{dimension.name}</h2>
@@ -305,10 +373,10 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
             <p className="octo-dimension-subtitle">{dimension.subtitle}</p>
             <div className="octo-progress-track"><span style={{ width: `${dimension.progress}%` }} /></div>
             <div className="octo-wheel-controls">
-              <button type="button" onClick={() => rotateTo((selectedIndex + 7) % 8)} aria-label="Previous dimension"><ChevronLeft size={17} /></button>
+              <button type="button" onClick={() => rotateTo((selectedIndex + dimensions.length - 1) % dimensions.length)} aria-label="Previous dimension"><ChevronLeft size={16} /></button>
               <span>{selectedIndex + 1} <i>/</i> 8</span>
-              <button type="button" onClick={() => rotateTo((selectedIndex + 1) % 8)} aria-label="Next dimension"><ChevronRight size={17} /></button>
-              <button type="button" className="octo-focus-button" onClick={() => { setTab("today"); setMessage(`Your ${dimension.name.toLowerCase()} focus is ready below.`) }}>Explore dimension <ArrowDownRight size={15} /></button>
+              <button type="button" onClick={() => rotateTo((selectedIndex + 1) % dimensions.length)} aria-label="Next dimension"><ChevronRight size={16} /></button>
+              <button type="button" className="octo-focus-button" onClick={() => { setTab("today"); setMessage(`Your ${dimension.name.toLowerCase()} focus is ready below.`) }}>Explore dimension <ArrowDownRight size={14} /></button>
             </div>
           </div>
         </section>
