@@ -521,8 +521,8 @@ function GiftReferral({ onBack }: { onBack: () => void }) {
 
   return (
     <div
-      className="flex flex-col h-full overflow-hidden"
-      style={{ background: "#080810" }}
+      className="screen profile-screen flex flex-col h-full overflow-hidden"
+      style={{ background: "var(--background)" }}
     >
       <div
         style={{
