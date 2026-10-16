@@ -18,6 +18,7 @@ import {
   Target,
   Trophy,
   WandSparkles,
+  ShoppingBag,
 } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 import type { Screen } from "../types"
@@ -106,9 +107,10 @@ function segmentPath(index: number) {
 
 interface OctolifeProps {
   onNavigate: (screen: Screen) => void
+  cartCount: number
 }
 
-export default function Octolife({ onNavigate }: OctolifeProps) {
+export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [rotation, setRotation] = useState(0)
   const [tab, setTab] = useState<HomeTab>("today")
@@ -184,6 +186,7 @@ export default function Octolife({ onNavigate }: OctolifeProps) {
           </div>
         </div>
         <div className="octo-header-actions">
+          <button type="button" className="octo-icon-button octo-cart-button" onClick={() => onNavigate("cart")} aria-label={`Open cart, ${cartCount} items`}><ShoppingBag size={18} />{cartCount > 0 && <i className="octo-cart-count">{cartCount > 99 ? "99+" : cartCount}</i>}</button>
           <button type="button" className="octo-icon-button" onClick={() => onNavigate("insights")} aria-label="Open progress insights"><Trophy size={18} /></button>
           <button type="button" className="octo-avatar-button" onClick={() => onNavigate("profile")} aria-label="Open your profile">J</button>
         </div>
