@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Star, Trophy, Zap, Gift, ChevronRight, Clock, Users, Crown, Shield } from 'lucide-react';
+import { ArrowLeft, Star, Trophy, Zap, Gift, ChevronRight, Clock, Users, Crown, Shield } from 'lucide-react';
 import GlassCard, { Badge } from '../components/GlassCard';
 
 const badges = [
@@ -31,7 +31,11 @@ const rarityColors: Record<string, 'gold' | 'purple' | 'cyan' | 'pink' | 'muted'
 
 const tabs = ['Overview', 'Badges', 'Quests', 'VIP Tiers'];
 
-export default function Loyalty() {
+interface LoyaltyProps {
+  onBack: () => void;
+}
+
+export default function Loyalty({ onBack }: LoyaltyProps) {
   const [activeTab, setActiveTab] = useState('Overview');
   const userPoints = 2850;
   const userTier = 'Gold';
@@ -43,7 +47,23 @@ export default function Loyalty() {
       <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.12) 0%, transparent 50%), radial-gradient(ellipse at 100% 80%, rgba(108,60,225,0.1) 0%, transparent 40%)' }} />
 
       {/* Header with tier */}
-      <div className="flex-shrink-0 pt-14 pb-0" style={{ position: 'relative' }}>
+      <div className="flex-shrink-0 pt-4 pb-0" style={{ position: 'relative' }}>
+        <div style={{ padding: '0 20px 12px' }}>
+          <button
+            type="button"
+            onClick={onBack}
+            aria-label="Back to dashboard"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              minHeight: 40, padding: '0 12px', borderRadius: 12,
+              color: 'rgba(240,240,255,0.76)', background: 'rgba(255,255,255,0.045)',
+              border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer',
+              fontFamily: 'Outfit', fontSize: 13, fontWeight: 600,
+            }}
+          >
+            <ArrowLeft size={16} /> Back to dashboard
+          </button>
+        </div>
         <div style={{
           margin: '0 20px 0',
           padding: '20px',
