@@ -116,7 +116,7 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
   const [tab, setTab] = useState<HomeTab>("today")
   const [completed, setCompleted] = useState<string[]>([])
   const [message, setMessage] = useState("")
-  const drag = useRef<{ angle: number; rotation: number; moved: boolean; x: number; y: number } | null>(null)
+  const drag = useRef<{ angle: number; rotation: number; moved: boolean; x: number; y: number; tapIndex?: number } | null>(null)
   const didDrag = useRef(false)
   const dimension = dimensions[selectedIndex]
   const DimensionIcon = dimension.icon
@@ -139,7 +139,9 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
   }
 
   const startRotate = (event: ReactPointerEvent<SVGSVGElement>) => {
-    drag.current = { angle: pointerAngle(event), rotation, moved: false, x: event.clientX, y: event.clientY }
+    const sector = event.target instanceof Element ? event.target.closest("[data-dimension-index]") : null
+    const tapIndex = sector ? Number(sector.getAttribute("data-dimension-index")) : undefined
+    drag.current = { angle: pointerAngle(event), rotation, moved: false, x: event.clientX, y: event.clientY, tapIndex }
     didDrag.current = false
     event.currentTarget.setPointerCapture(event.pointerId)
   }
@@ -166,6 +168,8 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
       setSelectedIndex(index)
       setRotation(-index * 45)
       setMessage("")
+    } else if (drag.current.tapIndex !== undefined) {
+      rotateTo(drag.current.tapIndex)
     }
     drag.current = null
   }
@@ -225,7 +229,7 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
                   const point = polar(160, 160, 99, mid)
                   const Icon = item.icon
                   return (
-                    <g key={item.id} onClick={() => { if (!didDrag.current) rotateTo(index) }} className="octo-wheel-sector" role="button" aria-label={`Select ${item.name}, ${item.progress}% progress`} tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); rotateTo(index) } }}>
+                    <g key={item.id} data-dimension-index={index} onClick={() => { if (!didDrag.current) rotateTo(index) }} className="octo-wheel-sector" role="button" aria-label={`Select ${item.name}, ${item.progress}% progress`} tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); rotateTo(index) } }}>
                       <path d={segmentPath(index)} fill={item.color} fillOpacity={active ? 0.28 : 0.105} stroke={item.color} strokeOpacity={active ? 0.95 : 0.38} strokeWidth={active ? 2.4 : 1.1} />
                       <path d={segmentPath(index)} fill="transparent" stroke="transparent" strokeWidth="12" />
                       <g transform={`translate(${point.x} ${point.y}) rotate(${-rotation})`}>
