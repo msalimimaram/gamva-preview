@@ -1,9 +1,9 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import BottomNav from "./components/BottomNav"
 import Splash from "./screens/Splash"
 import Onboarding from "./screens/Onboarding"
 import Auth from "./screens/Auth"
-import Dashboard from "./screens/Dashboard"
+import Octolife from "./screens/Octolife"
 import Explore from "./screens/Explore"
 import ProductDetail from "./screens/ProductDetail"
 import Cart from "./screens/Cart"
@@ -25,7 +25,7 @@ const NAV_SCREENS: Screen[] = [
 ]
 
 export default function App() {
-  const [screen, setScreen] = useState<Screen>("splash")
+  const [screen, setScreen] = useState<Screen>("splash")\n  const [theme, setTheme] = useState<"dark" | "light">(() => {\n    try { return localStorage.getItem("gamva-theme") === "light" ? "light" : "dark" } catch { return "dark" }\n  })\n\n  useEffect(() => {\n    document.documentElement.dataset.theme = theme\n    try { localStorage.setItem("gamva-theme", theme) } catch { /* storage is optional */ }\n  }, [theme])
   const [role, setRole] = useState<Role>("student")
   const [selectedProductId, setSelectedProductId] = useState("creatine-core")
   const [cart, setCart] = useState<CartItem[]>([])
@@ -95,7 +95,7 @@ export default function App() {
   const activeTab = NAV_SCREENS.includes(screen) ? screen : "dashboard"
 
   return (
-    <main className="app-shell">
+    <main className="app-shell" data-theme={theme}>
       <section className="app-frame">
         <div className="app-content">
           {screen === "splash" && (
@@ -119,7 +119,7 @@ export default function App() {
           )}
 
           {screen === "dashboard" && (
-            <Dashboard role={role} onNavigate={navigate} />
+            <Octolife onNavigate={navigate} />
           )}
 
           {screen === "explore" && (
