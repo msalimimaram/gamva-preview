@@ -182,6 +182,8 @@ export default function App() {
               onRoleChange={setRole}
               onLogout={() => navigate("auth")}
               onNavigate={navigate}
+              theme={theme}
+              onToggleTheme={() => setTheme((current) => current === "dark" ? "light" : "dark")}
             />
           )}
         </div>
