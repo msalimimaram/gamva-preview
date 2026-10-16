@@ -43,7 +43,7 @@ export default function Loyalty({ onBack }: LoyaltyProps) {
   const nextTierPoints = 5000;
 
   return (
-    <div className="flex flex-col h-full overflow-hidden" style={{ background: '#080810' }}>
+    <div className="screen loyalty-screen flex flex-col h-full overflow-hidden" style={{ background: "var(--background)" }}>
       <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.12) 0%, transparent 50%), radial-gradient(ellipse at 100% 80%, rgba(108,60,225,0.1) 0%, transparent 40%)' }} />
 
       {/* Header with tier */}
