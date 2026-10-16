@@ -18,7 +18,7 @@ import Profile from "./screens/Profile"
 import type { CartItem, LoyaltyState, Role, Screen } from "./types"
 import { getProduct } from "./data/products"
 
-const NAV_SCREENS: Screen[] = ["dashboard", "social", "content", "profile"]
+const NAV_SCREENS: Screen[] = ["dashboard", "explore", "coaching", "content", "profile"]
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>("splash")
@@ -211,7 +211,6 @@ export default function App() {
             active={activeTab}
             cartCount={cartCount}
             onNavigate={(id) => navigate(id as Screen)}
-            onMood={() => setMoodOpen(true)}
           />
         )}
         {moodOpen && (
