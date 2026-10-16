@@ -44,7 +44,7 @@ const dimensions: Dimension[] = [
   { id: "career", name: "Career", short: "CAREER", subtitle: "Create meaningful progress in your work and ambitions.", color: "#FF9B62", icon: BriefcaseBusiness, progress: 61, focus: "Move one thing forward", routine: "Take one focused career step", hint: "A small action can unlock meaningful momentum." },
   { id: "wellbeing", name: "Mind & Wellbeing", short: "MIND", subtitle: "Make space for calm, recovery, and emotional balance.", color: "#65E6B8", icon: Brain, progress: 76, focus: "Check in with yourself", routine: "Take five mindful minutes", hint: "Rest is part of progress, not the opposite of it." },
   { id: "joy", name: "Challenge & Joy", short: "JOY", subtitle: "Make room for play, discovery, and new experiences.", color: "#FF6B6B", icon: Flame, progress: 49, focus: "Do something energizing", routine: "Spend 15 minutes on something fun", hint: "A life well lived needs moments of delight." },
-  { id: "courage", name: "Courage", short: "COURAGE", subtitle: "Face one fear at a time, with support and self-respect.", color: "#72A7FF", icon: LockKeyhole, progress: 37, focus: "Take a brave small step", routine: "Do one thing you have been postponing", hint: "Courage is action with fear beside you." },
+  { id: "courage", name: "Overcoming Fears", short: "COURAGE", subtitle: "Face fear in small, supported steps, at your own pace.", color: "#72A7FF", icon: LockKeyhole, progress: 37, focus: "Take one brave small step", routine: "Do one thing you have been postponing", hint: "Courage is action with fear beside you." },
 ]
 
 const checklistByDimension: Record<string, { id: string; title: string; detail: string; time: string }[]> = {
@@ -115,12 +115,18 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
   const [rotation, setRotation] = useState(0)
   const [tab, setTab] = useState<HomeTab>("today")
   const [completed, setCompleted] = useState<string[]>([])
+  const [customRoutines, setCustomRoutines] = useState<Record<string, { id: string; title: string; detail: string; time: string }[]>>({})
+  const [routineDraft, setRoutineDraft] = useState("")
+  const [showRoutineForm, setShowRoutineForm] = useState(false)
+  const [customGoals, setCustomGoals] = useState<Record<string, string[]>>({})
+  const [goalDraft, setGoalDraft] = useState("")
+  const [showGoalForm, setShowGoalForm] = useState(false)
   const [message, setMessage] = useState("")
   const drag = useRef<{ angle: number; rotation: number; moved: boolean; x: number; y: number; tapIndex?: number } | null>(null)
   const didDrag = useRef(false)
   const dimension = dimensions[selectedIndex]
   const DimensionIcon = dimension.icon
-  const checklist = checklistByDimension[dimension.id] ?? []
+  const checklist = [...(checklistByDimension[dimension.id] ?? []), ...(customRoutines[dimension.id] ?? [])]
   const doneCount = checklist.filter((item) => completed.includes(`${dimension.id}-${item.id}`)).length
   const totalDone = completed.length
   const overallProgress = Math.round(dimensions.reduce((sum, item) => sum + item.progress, 0) / dimensions.length)
@@ -129,6 +135,8 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
     setSelectedIndex(index)
     setRotation(-index * 45)
     setMessage("")
+    setShowRoutineForm(false)
+    setShowGoalForm(false)
   }
 
   const pointerAngle = (event: ReactPointerEvent<SVGSVGElement>) => {
@@ -179,6 +187,27 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
     setCompleted((current) => current.includes(key) ? current.filter((item) => item !== key) : [...current, key])
   }
 
+  const addRoutine = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const title = routineDraft.trim()
+    if (!title) return
+    const routine = { id: `custom-${Date.now()}`, title, detail: "Your personal routine", time: "Custom" }
+    setCustomRoutines((current) => ({ ...current, [dimension.id]: [...(current[dimension.id] ?? []), routine] }))
+    setRoutineDraft("")
+    setShowRoutineForm(false)
+    setMessage("Routine added. You can check it off whenever you complete it.")
+  }
+
+  const addGoal = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const title = goalDraft.trim()
+    if (!title) return
+    setCustomGoals((current) => ({ ...current, [dimension.id]: [...(current[dimension.id] ?? []), title] }))
+    setGoalDraft("")
+    setShowGoalForm(false)
+    setMessage("Goal added to this dimension. Progress can grow one step at a time.")
+  }
+
   return (
     <div className="screen octolife-screen">
       <header className="octo-header">
@@ -203,7 +232,7 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
             <h1>Your life, <span>in balance.</span></h1>
             <p className="octo-subtitle">You don't have to change everything today. Just choose your next small step.</p>
           </div>
-          <div className="octo-overall-pill"><span className="octo-overall-ring">{overallProgress}</span><span><b>Life balance</b><small>Across 8 dimensions</small></span></div>
+          <div className="octo-overall-pill"><span className="octo-overall-ring">{overallProgress}</span><span><b>Life balance</b><small>Preview · 8 dimensions</small></span></div>
         </section>
 
         <section className="octo-wheel-layout" aria-label="Interactive Octolife wheel">
@@ -266,7 +295,7 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
                 <p className="octo-eyebrow">DIMENSION {String(selectedIndex + 1).padStart(2, "0")} / 08</p>
                 <h2>{dimension.name}</h2>
               </div>
-              <div className="octo-dimension-progress"><strong>{dimension.progress}%</strong><span>progress</span></div>
+              <div className="octo-dimension-progress"><strong>{dimension.progress}%</strong><span>preview progress</span></div>
             </div>
             <p className="octo-dimension-subtitle">{dimension.subtitle}</p>
             <div className="octo-progress-track"><span style={{ width: `${dimension.progress}%` }} /></div>
@@ -306,13 +335,16 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
                   </button>
                 })}
               </div>
-              <button type="button" className="octo-add-task" onClick={() => setMessage("Custom routines will be connected to your personal routine builder in the next implementation step.")}><Plus size={16} /> Add a personal routine</button>
+              <button type="button" className="octo-add-task" onClick={() => { setShowRoutineForm((current) => !current); setMessage("") }}><Plus size={16} /> {showRoutineForm ? "Cancel" : "Add a personal routine"}</button>
+              {showRoutineForm && <form className="octo-inline-form" onSubmit={addRoutine}><input value={routineDraft} onChange={(event) => setRoutineDraft(event.target.value)} maxLength={90} placeholder="e.g. Stretch before bed" aria-label="New routine name" autoFocus /><button type="submit" disabled={!routineDraft.trim()}>Add routine</button></form>}
             </>
           )}
           {tab === "goals" && (
             <>
-              <div className="octo-panel-heading"><div><h3>Goals that matter to you</h3><p>Long-term direction, broken into achievable steps.</p></div><button type="button" className="octo-small-action" onClick={() => setMessage("Goal creation is the next step; this preview keeps your current goals safe.")}><Plus size={16} /> New goal</button></div>
+              <div className="octo-panel-heading"><div><h3>Goals that matter to you</h3><p>Long-term direction, broken into achievable steps.</p></div><button type="button" className="octo-small-action" onClick={() => { setShowGoalForm((current) => !current); setMessage("") }}><Plus size={16} /> {showGoalForm ? "Cancel" : "New goal"}</button></div>
               <div className="octo-goal-card"><div className="octo-goal-icon" style={{ color: dimension.color, background: `${dimension.color}18` }}><Target size={19} /></div><div className="octo-goal-main"><b>{dimension.focus}</b><p>{dimension.routine}</p><div className="octo-progress-track"><span style={{ width: `${dimension.progress}%`, background: dimension.color }} /></div></div><strong style={{ color: dimension.color }}>{dimension.progress}%</strong></div>
+              {(customGoals[dimension.id] ?? []).map((goal, index) => <div className="octo-custom-goal" key={`${goal}-${index}`}><Target size={17} color={dimension.color} /><span><b>{goal}</b><small>Just getting started · 0% logged</small></span></div>)}
+              {showGoalForm && <form className="octo-inline-form" onSubmit={addGoal}><input value={goalDraft} onChange={(event) => setGoalDraft(event.target.value)} maxLength={100} placeholder="What would you like to achieve?" aria-label="New goal name" autoFocus /><button type="submit" disabled={!goalDraft.trim()}>Create goal</button></form>}
               <div className="octo-support-note"><HeartHandshake size={18} /><p><b>No reset. No shame.</b><br />A missed day does not erase the progress you've already made.</p></div>
             </>
           )}
@@ -326,7 +358,7 @@ export default function Octolife({ onNavigate, cartCount }: OctolifeProps) {
           {tab === "content" && (
             <>
               <div className="octo-panel-heading"><div><h3>Ideas for your next step</h3><p>Helpful content, matched to {dimension.name.toLowerCase()}.</p></div><BookOpen size={20} color={dimension.color} /></div>
-              <button type="button" className="octo-content-card" onClick={() => setMessage(`Curated ${dimension.name.toLowerCase()} content will be connected to the content library.`)}><span className="octo-content-art" style={{ "--dimension-color": dimension.color } as CSSProperties}><Sparkles size={24} /></span><span><small>2 MIN READ · START HERE</small><b>{dimension.focus}</b><p>{dimension.hint}</p></span><ChevronRight size={17} /></button>
+              <button type="button" className="octo-content-card" onClick={() => setMessage(dimension.hint)}><span className="octo-content-art" style={{ "--dimension-color": dimension.color } as CSSProperties}><Sparkles size={24} /></span><span><small>2 MIN READ · START HERE</small><b>{dimension.focus}</b><p>{dimension.hint}</p></span><ChevronRight size={17} /></button>
               <button type="button" className="octo-content-card" onClick={() => onNavigate("coaching")}><span className="octo-content-art alt"><HeartHandshake size={24} /></span><span><small>GUIDANCE</small><b>Support makes progress easier</b><p>Explore coaching and guided programs when you need a hand.</p></span><ChevronRight size={17} /></button>
             </>
           )}
