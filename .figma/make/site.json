@@ -1,0 +1,10 @@
+{
+  "description": "GAMva is a health-tech super-app designed for coaches, students, and sellers, offering personalized dashboards, real-time analytics, and seamless session booking.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
