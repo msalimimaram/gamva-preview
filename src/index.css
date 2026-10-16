@@ -1923,3 +1923,33 @@ html[data-theme="light"] .content-resource-expanded p b { color:#211d3b; }
 html[data-theme="light"] .community-intent-post p { color:#312b50; }
 html[data-theme="light"] .bottom-nav__mood small { color:rgba(45,41,77,.7); }
 html[data-theme="light"] .octo-cart-count { border-color:#f6f7fc; }
+
+
+/* Ensure light mode remains legible on legacy screens with inline prototype styles. */
+html[data-theme="light"] .app-content .screen:not(.octolife-screen):not(.community-screen):not(.content-hub-screen):not(.profile-screen) p,
+html[data-theme="light"] .app-content .screen:not(.octolife-screen):not(.community-screen):not(.content-hub-screen):not(.profile-screen) h1,
+html[data-theme="light"] .app-content .screen:not(.octolife-screen):not(.community-screen):not(.content-hub-screen):not(.profile-screen) h2,
+html[data-theme="light"] .app-content .screen:not(.octolife-screen):not(.community-screen):not(.content-hub-screen):not(.profile-screen) h3,
+html[data-theme="light"] .app-content .screen:not(.octolife-screen):not(.community-screen):not(.content-hub-screen):not(.profile-screen) label {
+  color: #211d3b !important;
+}
+html[data-theme="light"] .app-content .screen:not(.octolife-screen):not(.community-screen):not(.content-hub-screen):not(.profile-screen) span[style*="#f0f0ff"],
+html[data-theme="light"] .app-content .screen:not(.octolife-screen):not(.community-screen):not(.content-hub-screen):not(.profile-screen) span[style*="rgba(240,240,255"] {
+  color: #312b50 !important;
+}
+html[data-theme="light"] .app-content .screen:not(.octolife-screen):not(.community-screen):not(.content-hub-screen):not(.profile-screen) button:not(.ui-button--primary):not(.ui-button--danger):not(.ui-button--ghost) {
+  color: #312b50;
+}
+html[data-theme="light"] .app-content .screen:not(.octolife-screen):not(.community-screen):not(.content-hub-screen):not(.profile-screen) .ui-button--primary {
+  color: #fff !important;
+}
+html[data-theme="light"] .app-content .screen:not(.octolife-screen):not(.community-screen):not(.content-hub-screen):not(.profile-screen) .glass,
+html[data-theme="light"] .app-content .screen:not(.octolife-screen):not(.community-screen):not(.content-hub-screen):not(.profile-screen) .glass-strong {
+  border-color: rgba(40,35,80,.12) !important;
+  background: rgba(255,255,255,.86) !important;
+  box-shadow: 0 12px 30px rgba(41,33,83,.055);
+}
+html[data-theme="light"] .app-content .screen:not(.octolife-screen):not(.community-screen):not(.content-hub-screen):not(.profile-screen) .demo-notice {
+  background: rgba(0,190,220,.055);
+  border-color: rgba(0,150,180,.18);
+}
