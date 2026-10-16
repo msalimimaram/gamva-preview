@@ -1,6 +1,6 @@
 export type Role = "student" | "coach" | "seller"
 
-export type Screen = "splash" | "onboarding" | "auth" | "dashboard" | "explore" | "coaching" | "insights" | "profile" | "product" | "cart" | "comparison" | "report" | "loyalty"
+export type Screen = "splash" | "onboarding" | "auth" | "dashboard" | "social" | "content" | "explore" | "coaching" | "insights" | "profile" | "product" | "cart" | "comparison" | "report" | "loyalty"
 
 export interface Product {
   id: string
