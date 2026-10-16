@@ -1,46 +1,39 @@
-import {
-  Orbit,
-  UsersRound,
-  BookOpen,
-  UserRound,
-  HeartPulse,
-} from "lucide-react"
+import { BookOpen, Dumbbell, House, ShoppingBag, UserRound } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
 
-const tabs = [
-  { id: "dashboard", icon: Orbit, label: "Octolife" },
-  { id: "social", icon: UsersRound, label: "Social" },
-  { id: "content", icon: BookOpen, label: "Content" },
+const tabs: { id: string; icon: LucideIcon; label: string }[] = [
+  { id: "dashboard", icon: House, label: "Home" },
+  { id: "explore", icon: ShoppingBag, label: "Shop" },
+  { id: "coaching", icon: Dumbbell, label: "Coaches" },
+  { id: "content", icon: BookOpen, label: "Media" },
   { id: "profile", icon: UserRound, label: "Profile" },
 ]
 
 interface BottomNavProps {
   active: string
   onNavigate: (id: string) => void
-  onMood: () => void
+  cartCount: number
 }
 
-export default function BottomNav({ active, onNavigate, onMood }: BottomNavProps) {
+export default function BottomNav({ active, onNavigate, cartCount }: BottomNavProps) {
   return (
     <nav className="bottom-nav" aria-label="Primary navigation">
       <div className="bottom-nav__inner">
-        {tabs.slice(0, 2).map(({ id, icon: Icon, label }) => {
+        {tabs.map(({ id, icon: Icon, label }) => {
           const isActive = active === id
           return (
-            <button key={id} type="button" onClick={() => onNavigate(id)} className={`bottom-nav__item ${isActive ? "is-active" : ""}`} aria-current={isActive ? "page" : undefined}>
-              <Icon size={20} aria-hidden="true" />
-              <span>{label}</span>
-            </button>
-          )
-        })}
-        <button type="button" className="bottom-nav__mood" onClick={onMood} aria-label="Open mood check-in">
-          <span><HeartPulse size={22} aria-hidden="true" /></span>
-          <small>Mood</small>
-        </button>
-        {tabs.slice(2).map(({ id, icon: Icon, label }) => {
-          const isActive = active === id
-          return (
-            <button key={id} type="button" onClick={() => onNavigate(id)} className={`bottom-nav__item ${isActive ? "is-active" : ""}`} aria-current={isActive ? "page" : undefined}>
-              <Icon size={20} aria-hidden="true" />
+            <button
+              key={id}
+              type="button"
+              onClick={() => onNavigate(id)}
+              className={`bottom-nav__item ${isActive ? "is-active" : ""}`}
+              aria-current={isActive ? "page" : undefined}
+              aria-label={id === "explore" && cartCount > 0 ? `Shop, ${cartCount} items in cart` : label}
+            >
+              <span className="bottom-nav__icon-wrap">
+                <Icon size={20} aria-hidden="true" />
+                {id === "explore" && cartCount > 0 && <i className="bottom-nav__badge">{cartCount > 99 ? "99+" : cartCount}</i>}
+              </span>
               <span>{label}</span>
             </button>
           )
