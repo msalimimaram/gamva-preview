@@ -1,5 +1,5 @@
 import {
-  Home,
+  Orbit,
   Compass,
   Dumbbell,
   ChartNoAxesCombined,
@@ -8,7 +8,7 @@ import {
 } from "lucide-react"
 
 const tabs = [
-  { id: "dashboard", icon: Home, label: "Home" },
+  { id: "dashboard", icon: Orbit, label: "Octolife" },
   { id: "explore", icon: Compass, label: "Explore" },
   { id: "coaching", icon: Dumbbell, label: "Coaching" },
   { id: "insights", icon: ChartNoAxesCombined, label: "Insights" },
