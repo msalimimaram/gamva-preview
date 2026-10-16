@@ -2191,3 +2191,11 @@ html[data-theme="light"] .profile-list-card p { color:#475569; }
 @media (prefers-reduced-motion: reduce) {
   *,*::before,*::after { scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important; }
 }
+
+
+.profile-moment-tabs { grid-template-columns:repeat(5,minmax(0,1fr)); }
+.profile-moment-tabs button { padding:0 3px;font-size:10px;white-space:nowrap; }
+@media(max-width:360px) {
+  .profile-moment-tabs { gap:2px;padding:3px; }
+  .profile-moment-tabs button { font-size:9px; }
+}
