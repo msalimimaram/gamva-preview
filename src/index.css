@@ -1001,3 +1001,660 @@ button {
     border-radius: 20px !important;
   }
 }
+
+
+/* ================================================================
+   OCTOLIFE SIGNATURE EXPERIENCE
+   ================================================================ */
+.app-shell {
+  padding: clamp(0px, 1.2vw, 18px);
+}
+
+.app-frame {
+  width: min(100%, 1440px);
+  height: min(100%, 1000px);
+  max-height: calc(100dvh - 28px);
+  border-radius: clamp(0px, 2.2vw, 28px);
+}
+
+.octolife-screen {
+  --octo-ink: #f4f3ff;
+  --octo-muted: rgba(226, 225, 246, 0.57);
+  --octo-panel: rgba(255, 255, 255, 0.045);
+  --octo-panel-strong: rgba(18, 18, 31, 0.88);
+  --octo-line: rgba(224, 222, 255, 0.105);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  height: 100%;
+  min-height: 0;
+  color: var(--octo-ink);
+  background:
+    radial-gradient(ellipse at 50% 4%, rgba(108, 60, 225, 0.16), transparent 35%),
+    radial-gradient(ellipse at 95% 55%, rgba(0, 229, 255, 0.055), transparent 30%),
+    #080810;
+}
+
+.octo-header {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex: 0 0 auto;
+  min-height: 76px;
+  padding: 14px clamp(18px, 4vw, 48px);
+  border-bottom: 1px solid rgba(230, 228, 255, 0.065);
+  background: rgba(8, 8, 16, 0.72);
+  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(22px);
+}
+
+.octo-brand,
+.octo-header-actions,
+.octo-overall-pill,
+.octo-dimension-topline,
+.octo-panel-heading,
+.octo-task,
+.octo-content-card,
+.octo-support-note,
+.octo-footer-note,
+.octo-theme-row {
+  display: flex;
+  align-items: center;
+}
+
+.octo-brand { gap: 11px; min-width: 0; }
+.octo-brand-mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 14px;
+  color: #fff;
+  background: linear-gradient(140deg, #885cff, #5128c8 62%, #00aeca);
+  box-shadow: 0 0 28px rgba(108, 60, 225, 0.28), inset 0 1px rgba(255,255,255,.3);
+}
+.octo-brand-name {
+  font: 900 23px/1 'Outfit', sans-serif;
+  letter-spacing: -1.2px;
+  color: #fff;
+}
+.octo-brand-name span { color: #ff9b62; }
+.octo-brand-caption {
+  margin: 5px 0 0;
+  color: rgba(224,222,255,.48);
+  font: 600 8px/1 'JetBrains Mono', monospace;
+  letter-spacing: .14em;
+}
+.octo-header-actions { gap: 10px; }
+.octo-icon-button, .octo-avatar-button {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(225,225,255,.12);
+  border-radius: 14px;
+  color: #dcd7ff;
+  background: rgba(255,255,255,.045);
+  cursor: pointer;
+  transition: .18s ease;
+}
+.octo-icon-button:hover, .octo-avatar-button:hover { border-color: rgba(0,229,255,.4); transform: translateY(-1px); }
+.octo-avatar-button {
+  color: #fff;
+  font: 800 14px 'Outfit', sans-serif;
+  background: linear-gradient(145deg, #7048e8, #25204a);
+  border-color: rgba(159,131,255,.45);
+  box-shadow: 0 0 20px rgba(108,60,225,.2);
+}
+
+.octo-main-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 0 clamp(18px, 4vw, 48px) 34px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156,137,236,.2) transparent;
+}
+.octo-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  padding: clamp(24px, 3.5vw, 42px) 0 18px;
+}
+.octo-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  color: #00e5ff;
+  font: 700 10px/1.4 'JetBrains Mono', monospace;
+  letter-spacing: .12em;
+}
+.octo-live-dot {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #00e5ff;
+  box-shadow: 0 0 10px rgba(0,229,255,.8);
+}
+.octo-intro h1 {
+  margin: 0;
+  color: #f9f8ff;
+  font: 800 clamp(29px, 3.3vw, 44px)/1.05 'Outfit', sans-serif;
+  letter-spacing: -.045em;
+}
+.octo-intro h1 span {
+  color: transparent;
+  background: linear-gradient(90deg, #a28bff, #00e5ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+.octo-subtitle {
+  max-width: 620px;
+  margin: 12px 0 0;
+  color: var(--octo-muted);
+  font: 400 13px/1.65 'Inter', sans-serif;
+}
+.octo-overall-pill {
+  gap: 11px;
+  flex: 0 0 auto;
+  padding: 10px 14px 10px 10px;
+  border: 1px solid rgba(176,156,255,.2);
+  border-radius: 17px;
+  background: linear-gradient(135deg, rgba(108,60,225,.13), rgba(255,255,255,.025));
+}
+.octo-overall-ring {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 2px solid #8e74ff;
+  color: #fff;
+  font: 800 14px 'Outfit', sans-serif;
+  box-shadow: 0 0 18px rgba(108,60,225,.16), inset 0 0 12px rgba(108,60,225,.14);
+}
+.octo-overall-pill b, .octo-overall-pill small { display: block; white-space: nowrap; }
+.octo-overall-pill b { color: #f4f2ff; font: 700 12px 'Outfit', sans-serif; }
+.octo-overall-pill small { margin-top: 4px; color: var(--octo-muted); font: 10px 'Inter', sans-serif; }
+
+.octo-wheel-layout {
+  display: grid;
+  grid-template-columns: minmax(300px, .92fr) minmax(280px, 1.08fr);
+  align-items: center;
+  gap: clamp(22px, 4vw, 58px);
+  padding: 2px 0 28px;
+}
+.octo-wheel-wrap {
+  position: relative;
+  width: min(100%, 430px);
+  aspect-ratio: 1;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+.octo-wheel-orbit {
+  position: absolute;
+  inset: 5%;
+  border: 1px solid rgba(148,125,255,.13);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.octo-orbit-one { transform: rotate(22.5deg) scaleX(.88); }
+.octo-orbit-two { inset: 0; border-style: dashed; border-color: rgba(0,229,255,.12); }
+.octo-wheel-glow {
+  position: absolute;
+  width: 56%;
+  height: 56%;
+  border-radius: 50%;
+  filter: blur(64px);
+  opacity: .15;
+  pointer-events: none;
+  transition: background 400ms ease;
+}
+.octo-wheel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  filter: drop-shadow(0 14px 32px rgba(0,0,0,.28));
+}
+.octo-wheel:active { cursor: grabbing; }
+.octo-wheel-sector { cursor: pointer; outline: none; }
+.octo-wheel-sector:focus-visible path:first-child { stroke: #fff; stroke-width: 3.5; }
+.octo-svg-icon { width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: inherit; }
+.octo-wheel-hint {
+  position: absolute;
+  z-index: 2;
+  bottom: 2%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border: 1px solid rgba(224,222,255,.1);
+  border-radius: 99px;
+  color: rgba(225,224,255,.52);
+  background: rgba(8,8,16,.72);
+  font: 700 8px 'JetBrains Mono', monospace;
+  letter-spacing: .1em;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  backdrop-filter: blur(10px);
+}
+.octo-rotate-glyph { color: #00e5ff; font-size: 14px; }
+
+.octo-dimension-detail {
+  min-width: 0;
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid color-mix(in srgb, var(--dimension-color) 26%, transparent);
+  border-radius: 26px;
+  background:
+    radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--dimension-color) 12%, transparent), transparent 46%),
+    linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+  box-shadow: 0 24px 55px rgba(0,0,0,.18), inset 0 1px rgba(255,255,255,.06);
+}
+.octo-dimension-topline { gap: 13px; }
+.octo-dimension-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--dimension-color) 45%, transparent);
+  border-radius: 16px;
+  color: var(--dimension-color);
+  background: color-mix(in srgb, var(--dimension-color) 12%, transparent);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--dimension-color) 12%, transparent);
+}
+.octo-dimension-copy { flex: 1; min-width: 0; }
+.octo-dimension-copy .octo-eyebrow { margin-bottom: 5px; font-size: 8px; }
+.octo-dimension-copy h2 { margin: 0; color: #f8f7ff; font: 800 clamp(20px, 2.2vw, 28px)/1.1 'Outfit', sans-serif; letter-spacing: -.03em; }
+.octo-dimension-progress { text-align: right; flex: 0 0 auto; }
+.octo-dimension-progress strong { display: block; color: var(--dimension-color); font: 800 23px 'Outfit', sans-serif; }
+.octo-dimension-progress span { display: block; margin-top: 2px; color: var(--octo-muted); font: 10px 'Inter', sans-serif; }
+.octo-dimension-subtitle { margin: 20px 0 18px; color: var(--octo-muted); font: 400 13px/1.65 'Inter', sans-serif; }
+.octo-progress-track { width: 100%; height: 6px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.08); }
+.octo-progress-track span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--dimension-color, #6c3ce1), #00e5ff); box-shadow: 0 0 12px color-mix(in srgb, var(--dimension-color, #6c3ce1) 30%, transparent); transition: width 400ms ease; }
+.octo-wheel-controls { display: flex; align-items: center; gap: 10px; margin-top: 22px; }
+.octo-wheel-controls > button:not(.octo-focus-button) {
+  width: 34px; height: 34px; display: grid; place-items: center;
+  border: 1px solid rgba(225,225,255,.12); border-radius: 11px;
+  color: #f3f1ff; background: rgba(255,255,255,.045); cursor: pointer;
+}
+.octo-wheel-controls > span { min-width: 34px; color: #fff; text-align: center; font: 700 12px 'Outfit', sans-serif; }
+.octo-wheel-controls > span i { color: var(--octo-muted); font-style: normal; }
+.octo-focus-button {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  min-height: 38px; margin-left: auto; padding: 0 12px;
+  border: 1px solid rgba(108,60,225,.45); border-radius: 12px;
+  color: #fff; background: linear-gradient(120deg, rgba(108,60,225,.9), rgba(85,50,184,.9));
+  box-shadow: 0 7px 20px rgba(108,60,225,.18); font: 700 11px 'Outfit', sans-serif; cursor: pointer;
+}
+
+.octo-daily-intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; padding: 10px 0 14px; }
+.octo-daily-intro .octo-eyebrow { margin-bottom: 7px; font-size: 9px; }
+.octo-daily-intro h2 { margin: 0; color: #f8f7ff; font: 800 clamp(23px, 2.4vw, 30px)/1.1 'Outfit', sans-serif; letter-spacing: -.035em; }
+.octo-text-link { display: flex; align-items: center; gap: 4px; padding: 8px 0; border: 0; color: #00e5ff; background: transparent; font: 700 11px 'Outfit', sans-serif; cursor: pointer; white-space: nowrap; }
+.octo-tabs { display: flex; gap: 6px; overflow-x: auto; padding: 5px; border: 1px solid rgba(225,225,255,.09); border-radius: 16px; background: rgba(255,255,255,.025); scrollbar-width: none; }
+.octo-tabs::-webkit-scrollbar { display: none; }
+.octo-tab {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  flex: 1 0 auto; min-height: 42px; padding: 0 13px;
+  border: 1px solid transparent; border-radius: 11px;
+  color: rgba(226,225,246,.62); background: transparent;
+  font: 600 11px 'Outfit', sans-serif; cursor: pointer; white-space: nowrap; transition: .18s ease;
+}
+.octo-tab.is-active { color: #fff; border-color: rgba(0,229,255,.16); background: linear-gradient(110deg, rgba(108,60,225,.2), rgba(0,229,255,.075)); box-shadow: inset 0 1px rgba(255,255,255,.04); }
+.octo-tab.is-active svg { color: #00e5ff; }
+.octo-tab i { padding: 3px 5px; border-radius: 6px; color: #00e5ff; background: rgba(0,229,255,.08); font: 700 9px 'JetBrains Mono', monospace; font-style: normal; }
+.octo-panel {
+  margin-top: 12px;
+  padding: clamp(16px, 2.2vw, 24px);
+  border: 1px solid rgba(225,225,255,.09);
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.018));
+}
+.octo-panel-heading { justify-content: space-between; gap: 14px; margin-bottom: 16px; }
+.octo-panel-heading h3 { margin: 0; color: #f7f6ff; font: 800 17px 'Outfit', sans-serif; letter-spacing: -.02em; }
+.octo-panel-heading p { margin: 5px 0 0; color: var(--octo-muted); font: 11px/1.55 'Inter', sans-serif; }
+.octo-count-badge { flex: 0 0 auto; padding: 7px 9px; border: 1px solid rgba(0,229,255,.18); border-radius: 10px; color: #00e5ff; background: rgba(0,229,255,.06); font: 700 10px 'JetBrains Mono', monospace; }
+.octo-task-list { display: grid; gap: 8px; }
+.octo-task {
+  width: 100%; gap: 12px; padding: 13px 14px;
+  border: 1px solid rgba(225,225,255,.085); border-radius: 15px;
+  text-align: left; color: #f3f1ff; background: rgba(255,255,255,.025);
+  cursor: pointer; transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.octo-task:hover { border-color: rgba(0,229,255,.22); background: rgba(255,255,255,.045); }
+.octo-task.is-complete { border-color: rgba(69,227,189,.22); background: rgba(69,227,189,.045); }
+.octo-task-check { width: 23px; height: 23px; flex: 0 0 auto; display: grid; place-items: center; border: 1.5px solid rgba(225,225,255,.22); border-radius: 8px; color: #06110f; background: transparent; }
+.octo-task.is-complete .octo-task-check { border-color: #45e3bd; background: #45e3bd; }
+.octo-task-copy { flex: 1; min-width: 0; }
+.octo-task-copy b, .octo-task-copy small { display: block; }
+.octo-task-copy b { color: #f4f3ff; font: 700 12px 'Outfit', sans-serif; }
+.octo-task-copy small { margin-top: 4px; color: var(--octo-muted); font: 10px/1.4 'Inter', sans-serif; }
+.octo-task-time { flex: 0 0 auto; color: var(--octo-muted); font: 10px 'JetBrains Mono', monospace; }
+.octo-add-task { display: flex; align-items: center; gap: 7px; margin-top: 12px; padding: 8px 0; border: 0; color: #00e5ff; background: transparent; font: 700 11px 'Outfit', sans-serif; cursor: pointer; }
+.octo-small-action { display: flex; align-items: center; gap: 5px; padding: 8px 10px; border: 1px solid rgba(108,60,225,.3); border-radius: 10px; color: #fff; background: rgba(108,60,225,.12); font: 700 10px 'Outfit', sans-serif; cursor: pointer; white-space: nowrap; }
+.octo-goal-card { display: flex; align-items: center; gap: 12px; padding: 15px; border: 1px solid rgba(225,225,255,.09); border-radius: 16px; background: rgba(255,255,255,.025); }
+.octo-goal-icon { width: 40px; height: 40px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 13px; }
+.octo-goal-main { flex: 1; min-width: 0; }
+.octo-goal-main b { color: #f5f3ff; font: 700 12px 'Outfit', sans-serif; }
+.octo-goal-main p { margin: 4px 0 10px; color: var(--octo-muted); font: 10px 'Inter', sans-serif; }
+.octo-support-note { gap: 11px; margin-top: 12px; padding: 13px 14px; border: 1px solid rgba(108,60,225,.16); border-radius: 15px; color: #a996ff; background: rgba(108,60,225,.055); }
+.octo-support-note svg, .octo-footer-note svg { flex: 0 0 auto; }
+.octo-support-note p, .octo-footer-note p { margin: 0; color: var(--octo-muted); font: 10px/1.6 'Inter', sans-serif; }
+.octo-support-note b, .octo-footer-note b { color: #f5f3ff; font-weight: 700; }
+.octo-progress-list { display: grid; gap: 2px; }
+.octo-progress-row { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 39px; padding: 7px 8px; border: 0; border-radius: 10px; color: #f1efff; background: transparent; text-align: left; font: 600 11px 'Inter', sans-serif; cursor: pointer; }
+.octo-progress-row:hover { background: rgba(255,255,255,.045); }
+.octo-progress-dot { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 50%; box-shadow: 0 0 9px currentColor; }
+.octo-mini-track { flex: 1; min-width: 28px; height: 4px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.08); }
+.octo-mini-track i { display: block; height: 100%; border-radius: inherit; }
+.octo-content-card { width: 100%; gap: 13px; padding: 13px 0; border: 0; border-bottom: 1px solid rgba(225,225,255,.08); color: #f5f3ff; background: transparent; text-align: left; cursor: pointer; }
+.octo-content-card:last-child { border-bottom: 0; }
+.octo-content-art { width: 54px; height: 62px; flex: 0 0 auto; display: grid; place-items: center; border: 1px solid color-mix(in srgb, var(--dimension-color) 30%, transparent); border-radius: 14px; color: var(--dimension-color); background: radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--dimension-color) 28%, transparent), rgba(108,60,225,.06)); }
+.octo-content-art.alt { color: #9b85ff; background: linear-gradient(140deg, rgba(108,60,225,.2), rgba(0,229,255,.06)); }
+.octo-content-card > span:nth-child(2) { flex: 1; min-width: 0; }
+.octo-content-card small, .octo-content-card b { display: block; }
+.octo-content-card small { margin-bottom: 5px; color: #00e5ff; font: 700 8px 'JetBrains Mono', monospace; letter-spacing: .08em; }
+.octo-content-card b { color: #f5f3ff; font: 700 12px 'Outfit', sans-serif; }
+.octo-content-card p { margin: 4px 0 0; color: var(--octo-muted); font: 10px/1.5 'Inter', sans-serif; }
+.octo-footer-note { align-items: flex-start; gap: 11px; margin-top: 14px; padding: 15px; border: 1px solid rgba(0,229,255,.11); border-radius: 15px; color: #00e5ff; background: linear-gradient(100deg, rgba(0,229,255,.04), rgba(108,60,225,.035)); }
+.octo-inline-message { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; padding: 10px 12px; border: 1px solid rgba(0,229,255,.16); border-radius: 12px; color: #00e5ff; background: rgba(0,229,255,.05); font: 11px/1.45 'Inter', sans-serif; }
+.octo-dimensions-overlay { position: absolute; z-index: 30; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(0,0,0,.7); backdrop-filter: blur(14px); }
+.octo-dimensions-modal { width: min(100%, 480px); max-height: 80%; overflow: auto; padding: 20px; border: 1px solid rgba(225,225,255,.13); border-radius: 22px; background: #11111d; box-shadow: 0 28px 80px rgba(0,0,0,.5); }
+
+@media (min-width: 1100px) {
+  .octo-main-scroll { padding-inline: clamp(36px, 5vw, 72px); }
+  .octo-intro { padding-top: 42px; }
+  .octo-wheel-layout { grid-template-columns: minmax(380px, .95fr) minmax(380px, 1.05fr); gap: clamp(45px, 6vw, 90px); }
+  .octo-wheel-wrap { width: min(100%, 470px); }
+  .octo-dimension-detail { padding: 34px; }
+  .octo-panel { padding: 26px 30px; }
+}
+
+@media (max-width: 900px) {
+  .octo-wheel-layout { grid-template-columns: minmax(260px, .9fr) minmax(250px, 1.1fr); gap: 20px; }
+  .octo-wheel-wrap { width: min(100%, 360px); }
+  .octo-dimension-detail { padding: 20px; }
+  .octo-focus-button { padding-inline: 9px; font-size: 10px; }
+}
+
+@media (max-width: 680px) {
+  .app-shell { padding: 0; }
+  .app-frame { width: 100%; height: 100dvh; max-height: 100dvh; border: 0; border-radius: 0; }
+  .octo-header { min-height: 66px; padding: 10px 18px; }
+  .octo-brand-mark { width: 38px; height: 38px; border-radius: 12px; }
+  .octo-brand-name { font-size: 21px; }
+  .octo-icon-button, .octo-avatar-button { width: 39px; height: 39px; border-radius: 13px; }
+  .octo-main-scroll { padding: 0 17px calc(22px + env(safe-area-inset-bottom)); }
+  .octo-intro { display: block; padding: 24px 0 10px; }
+  .octo-intro h1 { font-size: clamp(30px, 8.3vw, 39px); }
+  .octo-subtitle { margin-top: 9px; font-size: 12px; }
+  .octo-overall-pill { width: fit-content; margin-top: 14px; padding: 7px 12px 7px 8px; }
+  .octo-overall-ring { width: 36px; height: 36px; font-size: 12px; }
+  .octo-wheel-layout { display: flex; flex-direction: column; gap: 5px; padding-bottom: 20px; }
+  .octo-wheel-wrap { width: min(83vw, 360px); flex: 0 0 auto; margin: 0 auto; }
+  .octo-wheel-hint { bottom: 0; }
+  .octo-dimension-detail { width: 100%; padding: 17px; border-radius: 21px; }
+  .octo-dimension-icon { width: 42px; height: 42px; border-radius: 13px; }
+  .octo-dimension-copy h2 { font-size: 22px; }
+  .octo-dimension-subtitle { margin: 14px 0 14px; font-size: 12px; }
+  .octo-wheel-controls { margin-top: 16px; gap: 7px; }
+  .octo-focus-button { min-height: 36px; margin-left: auto; }
+  .octo-daily-intro { padding-top: 7px; }
+  .octo-daily-intro h2 { font-size: 24px; }
+  .octo-tabs { margin-inline: -1px; gap: 3px; padding: 4px; }
+  .octo-tab { min-height: 40px; gap: 6px; padding: 0 10px; font-size: 10px; }
+  .octo-tab svg { width: 14px; height: 14px; }
+  .octo-tab i { font-size: 8px; }
+  .octo-panel { margin-top: 9px; padding: 15px; border-radius: 18px; }
+  .octo-panel-heading h3 { font-size: 16px; }
+  .octo-task { padding: 12px 10px; gap: 9px; }
+  .octo-task-copy b { font-size: 11px; }
+  .octo-task-copy small { font-size: 9px; }
+  .octo-task-time { font-size: 9px; }
+  .octo-footer-note { margin-top: 10px; padding: 12px; }
+}
+
+@media (max-width: 380px) {
+  .octo-main-scroll { padding-inline: 13px; }
+  .octo-wheel-wrap { width: min(88vw, 330px); }
+  .octo-dimension-detail { padding: 14px; }
+  .octo-wheel-controls { gap: 5px; }
+  .octo-focus-button { font-size: 9px; padding-inline: 7px; }
+  .octo-tab { padding-inline: 8px; }
+  .octo-tab span { font-size: 9px; }
+}
+
+/* ================================================================
+   PROFILE — a real account hub, not a long list of dead-end rows
+   ================================================================ */
+.profile-screen { overflow: hidden; }
+.profile-screen > .flex-1 { padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
+.profile-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(108,60,225,.2), transparent 64%),
+    linear-gradient(180deg, rgba(255,255,255,.025), transparent);
+}
+.profile-hero::before {
+  content: "";
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  top: -160px;
+  left: calc(50% - 115px);
+  border: 1px solid rgba(0,229,255,.13);
+  border-radius: 50%;
+  box-shadow: 0 0 0 20px rgba(0,229,255,.025), 0 0 0 42px rgba(108,60,225,.025);
+  pointer-events: none;
+}
+.profile-avatar {
+  position: relative;
+  isolation: isolate;
+  border: 3px solid rgba(255,255,255,.16);
+  box-shadow: 0 0 0 6px rgba(108,60,225,.08), 0 14px 36px rgba(108,60,225,.28);
+}
+.profile-stats { gap: 8px !important; }
+.profile-stats > * {
+  min-width: 0;
+  border: 1px solid rgba(225,225,255,.1);
+  background: linear-gradient(145deg, rgba(255,255,255,.065), rgba(255,255,255,.02)) !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+}
+.profile-section > .glass,
+.profile-section > .glass-strong { border-radius: 18px; }
+.profile-theme-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid rgba(108,60,225,.22) !important;
+  background: linear-gradient(120deg, rgba(108,60,225,.11), rgba(0,229,255,.035)) !important;
+}
+.profile-theme-copy { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.profile-theme-icon {
+  width: 42px; height: 42px; flex: 0 0 auto;
+  display: grid; place-items: center; border-radius: 14px;
+  color: #b6a4ff; background: rgba(108,60,225,.18);
+}
+.profile-theme-copy h3 { margin: 0; color: #f6f4ff; font: 700 14px 'Outfit', sans-serif; }
+.profile-theme-copy p { margin: 4px 0 0; color: rgba(226,225,246,.55); font: 10px 'Inter', sans-serif; }
+.profile-theme-switch {
+  position: relative;
+  display: flex; align-items: center; gap: 7px;
+  min-height: 36px; padding: 0 9px 0 5px;
+  border: 1px solid rgba(0,229,255,.2); border-radius: 99px;
+  color: #00e5ff; background: rgba(0,229,255,.07);
+  cursor: pointer; transition: .2s ease;
+}
+.profile-theme-switch > span {
+  width: 24px; height: 24px; display: block; border-radius: 50%;
+  background: linear-gradient(135deg, #00e5ff, #6c3ce1);
+  box-shadow: 0 0 12px rgba(0,229,255,.22);
+  transition: transform .2s ease;
+}
+.profile-theme-switch small { color: inherit; font: 800 8px 'JetBrains Mono', monospace; letter-spacing: .05em; }
+.profile-theme-switch.is-light { border-color: rgba(108,60,225,.25); color: #6c3ce1; background: rgba(108,60,225,.08); }
+.profile-theme-switch.is-light > span { background: linear-gradient(135deg, #ffd166, #ff9b62); box-shadow: 0 0 12px rgba(255,177,84,.22); }
+.profile-screen .profile-section > p { letter-spacing: .12em; }
+.profile-screen button { transition: background-color .16s ease, border-color .16s ease, transform .16s ease; }
+.profile-screen button:active { transform: scale(.985); }
+
+@media (max-width: 420px) {
+  .profile-hero { padding-top: 25px !important; }
+  .profile-stats { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+}
+
+/* ================================================================
+   GLOBAL LIGHT MODE — same product identity, brighter surfaces
+   ================================================================ */
+html[data-theme="light"] {
+  color-scheme: light;
+  --background: #f4f5fb;
+  --foreground: #1b1930;
+  --card: rgba(255,255,255,.84);
+  --card-foreground: #1b1930;
+  --muted: rgba(25,22,54,.055);
+  --muted-foreground: rgba(34,31,66,.62);
+  --border: rgba(40,35,80,.12);
+  --surface-elevated: rgba(255,255,255,.96);
+}
+html[data-theme="light"] body {
+  background: radial-gradient(ellipse at 20% 0%, rgba(108,60,225,.09), transparent 38%), #edf0f8;
+}
+html[data-theme="light"] .app-shell {
+  background: radial-gradient(ellipse at 90% 0%, rgba(0,229,255,.1), transparent 30%), #edf0f8;
+}
+html[data-theme="light"] .app-frame {
+  background: #f6f7fc;
+  border-color: rgba(40,35,80,.13);
+  box-shadow: 0 28px 80px rgba(37,30,80,.12);
+}
+html[data-theme="light"] .app-content,
+html[data-theme="light"] .screen {
+  color: #201d36;
+  background: #f6f7fc !important;
+}
+html[data-theme="light"] .octolife-screen {
+  --octo-ink: #211d3b;
+  --octo-muted: rgba(45,41,77,.66);
+  --octo-panel: rgba(255,255,255,.76);
+  --octo-panel-strong: rgba(255,255,255,.94);
+  --octo-line: rgba(40,35,80,.12);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(108,60,225,.11), transparent 37%),
+    radial-gradient(ellipse at 95% 55%, rgba(0,190,220,.06), transparent 30%),
+    #f6f7fc !important;
+}
+html[data-theme="light"] .octo-header {
+  background: rgba(248,249,255,.86);
+  border-bottom-color: rgba(40,35,80,.09);
+}
+html[data-theme="light"] .octo-brand-name,
+html[data-theme="light"] .octo-intro h1,
+html[data-theme="light"] .octo-dimension-copy h2,
+html[data-theme="light"] .octo-daily-intro h2,
+html[data-theme="light"] .octo-panel-heading h3,
+html[data-theme="light"] .octo-task-copy b,
+html[data-theme="light"] .octo-goal-main b,
+html[data-theme="light"] .octo-content-card b,
+html[data-theme="light"] .octo-support-note b,
+html[data-theme="light"] .octo-footer-note b { color: #211d3b; }
+html[data-theme="light"] .octo-brand-caption { color: rgba(45,41,77,.56); }
+html[data-theme="light"] .octo-overall-pill,
+html[data-theme="light"] .octo-dimension-detail,
+html[data-theme="light"] .octo-tabs,
+html[data-theme="light"] .octo-panel,
+html[data-theme="light"] .octo-task,
+html[data-theme="light"] .octo-goal-card {
+  background-color: rgba(255,255,255,.78);
+  border-color: rgba(40,35,80,.12);
+  box-shadow: 0 12px 32px rgba(41,33,83,.055);
+}
+html[data-theme="light"] .octo-overall-ring { color: #34245f; }
+html[data-theme="light"] .octo-overall-pill b,
+html[data-theme="light"] .octo-dimension-progress span,
+html[data-theme="light"] .octo-dimension-subtitle,
+html[data-theme="light"] .octo-panel-heading p,
+html[data-theme="light"] .octo-task-copy small,
+html[data-theme="light"] .octo-task-time,
+html[data-theme="light"] .octo-goal-main p,
+html[data-theme="light"] .octo-content-card p,
+html[data-theme="light"] .octo-support-note p,
+html[data-theme="light"] .octo-footer-note p { color: rgba(45,41,77,.68); }
+html[data-theme="light"] .octo-dimension-progress strong { color: var(--dimension-color); }
+html[data-theme="light"] .octo-task,
+html[data-theme="light"] .octo-progress-row,
+html[data-theme="light"] .octo-content-card { color: #211d3b; }
+html[data-theme="light"] .octo-task.is-complete { background: rgba(69,227,189,.09); }
+html[data-theme="light"] .octo-wheel-hint { color: #625b7c; background: rgba(255,255,255,.86); border-color: rgba(40,35,80,.12); }
+html[data-theme="light"] .octo-wheel-controls > button:not(.octo-focus-button) { color: #312b50; background: rgba(255,255,255,.8); border-color: rgba(40,35,80,.14); }
+html[data-theme="light"] .octo-wheel-controls > span { color: #312b50; }
+html[data-theme="light"] .octo-wheel-controls > span i { color: #7c7595; }
+html[data-theme="light"] .octo-support-note { background: rgba(108,60,225,.055); }
+html[data-theme="light"] .octo-footer-note { background: rgba(0,190,220,.04); }
+html[data-theme="light"] .profile-screen {
+  --foreground: #201d36;
+  background: #f6f7fc !important;
+}
+html[data-theme="light"] .profile-hero { background: radial-gradient(ellipse at 50% 0%, rgba(108,60,225,.1), transparent 65%), linear-gradient(180deg, rgba(108,60,225,.025), transparent); }
+html[data-theme="light"] .profile-screen h2,
+html[data-theme="light"] .profile-screen h3 { color: #211d3b !important; }
+html[data-theme="light"] .profile-screen p { color: rgba(45,41,77,.68) !important; }
+html[data-theme="light"] .profile-screen span[style*="#f0f0ff"],
+html[data-theme="light"] .profile-screen span[style*="rgba(240,240,255"] { color: #312b50 !important; }
+html[data-theme="light"] .profile-theme-card,
+html[data-theme="light"] .profile-screen .glass,
+html[data-theme="light"] .profile-screen .glass-strong {
+  background: rgba(255,255,255,.88) !important;
+  border-color: rgba(40,35,80,.12) !important;
+  box-shadow: 0 12px 30px rgba(41,33,83,.055);
+}
+html[data-theme="light"] .profile-theme-copy h3 { color: #211d3b !important; }
+html[data-theme="light"] .profile-theme-copy p { color: rgba(45,41,77,.68) !important; }
+html[data-theme="light"] .profile-screen button span[style*="#f0f0ff"] { color: #312b50 !important; }
+html[data-theme="light"] .bottom-nav {
+  background: rgba(249,250,255,.92);
+  border-top-color: rgba(40,35,80,.12);
+  box-shadow: 0 -12px 32px rgba(41,33,83,.08);
+}
+html[data-theme="light"] .bottom-nav__item { color: rgba(45,41,77,.66); }
+html[data-theme="light"] .bottom-nav__item.is-active { color: #34245f; background: linear-gradient(180deg, rgba(108,60,225,.11), rgba(0,190,220,.045)); }
+html[data-theme="light"] .bottom-nav__cart { background: linear-gradient(145deg, rgba(108,60,225,.14), rgba(0,190,220,.06)); border-color: rgba(108,60,225,.25); }
+html[data-theme="light"] .bottom-nav__cart span { border-color: #f6f7fc; color: #fff; }
+html[data-theme="light"] .app-content .glass,
+html[data-theme="light"] .app-content .glass-strong {
+  color: #211d3b;
+  background: rgba(255,255,255,.82);
+  border-color: rgba(40,35,80,.12);
+  box-shadow: 0 12px 30px rgba(41,33,83,.055);
+}
+html[data-theme="light"] .app-content p:not(.octo-eyebrow),
+html[data-theme="light"] .app-content h1,
+html[data-theme="light"] .app-content h2,
+html[data-theme="light"] .app-content h3 { color: #211d3b; }
+html[data-theme="light"] .app-content input,
+html[data-theme="light"] .app-content select,
+html[data-theme="light"] .app-content textarea { color: #211d3b; background: rgba(255,255,255,.9); border-color: rgba(40,35,80,.18); }
+html[data-theme="light"] .app-toast { color: #211d3b; background: rgba(255,255,255,.95); border: 1px solid rgba(40,35,80,.12); }
+
+@media (prefers-reduced-motion: reduce) {
+  .octo-wheel, .octo-wheel-sector, .octo-progress-track span, .profile-theme-switch > span { transition: none !important; }
+}
