@@ -944,3 +944,60 @@ button {
     transform: scale(0.97);
   }
 }
+
+
+/* Dashboard hero: the primary visual anchor of the product. */
+.dashboard-score-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(192, 174, 255, 0.22) !important;
+  border-radius: 24px !important;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.24),
+    0 0 42px rgba(108, 60, 225, 0.11),
+    inset 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.dashboard-score-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(0, 229, 255, 0.14), transparent 31%),
+    linear-gradient(125deg, rgba(255,255,255,0.035), transparent 52%);
+}
+
+.dashboard-score-card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 170px;
+  height: 170px;
+  right: -92px;
+  bottom: -112px;
+  border: 1px solid rgba(0,229,255,0.13);
+  border-radius: 50%;
+  box-shadow: 0 0 0 18px rgba(0,229,255,0.025), 0 0 0 38px rgba(0,229,255,0.018);
+  pointer-events: none;
+}
+
+.product-grid > * {
+  min-width: 0;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .product-grid > *:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 34px rgba(0,0,0,0.22);
+  }
+}
+
+@media (max-width: 420px) {
+  .dashboard-score-card {
+    border-radius: 20px !important;
+  }
+}
