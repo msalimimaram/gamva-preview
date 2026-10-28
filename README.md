@@ -1,126 +1,49 @@
-# GAMva Preview — OctoLife Experience
+# GAMva — OctoLife preview
 
-<p align="center">
-  <strong>A mobile-first concept for a more connected approach to personal growth.</strong><br/>
-  Goals, routines, challenges, coaching, community, and social impact — designed as one experience.
-</p>
+GAMva is a personal-growth product I'm working on. The idea is to make it easier to work on different parts of life—such as health, learning, career, finances, goals and routines—without having to treat each one as a separate world.
 
-<p align="center">
-  <a href="https://gamva-preview.vercel.app/"><strong>▶ Explore the live preview</strong></a>
-  ·
-  <a href="https://github.com/msalimimaram/gamva_mobile">Flutter mobile client</a>
-  ·
-  <a href="https://github.com/msalimimaram/GAMva">Django backend</a>
-</p>
+**[Open the live preview](https://gamva-preview.vercel.app/)**
 
-<p align="center">
-  <img alt="React" src="https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white" />
-  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white" />
-  <img alt="Vite" src="https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white" />
-  <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white" />
-  <img alt="Status" src="https://img.shields.io/badge/Status-Design%20Preview-7C3AED" />
-</p>
+This repository contains the web preview built with React, TypeScript, Vite and Tailwind CSS. The Flutter mobile app and Django backend are maintained in separate repositories:
 
----
+- [Flutter app](https://github.com/msalimimaram/gamva_mobile)
+- [Django backend](https://github.com/msalimimaram/GAMva)
 
-## Overview
+## The idea
 
-GAMva is a life-improvement platform concept built around **OctoLife**, a framework for making progress across multiple dimensions of life rather than focusing on a single metric. This repository presents the web-based product and interaction preview.
+OctoLife organizes the concept around eight areas: Health, Learning, Financial wellbeing, Personal development, Career, Mental and emotional wellbeing, Challenge and entertainment, and Overcoming fears.
 
-The design direction is premium, dark, and mobile-first. It emphasizes clarity, personal agency, and sustainable progress instead of public ranking or shame-based motivation.
+I want the product to help people keep track of their progress without shaming them for missing a day or erasing the work they've already done. The preview explores the visual direction and some of the intended journeys.
 
-> **Project status:** This repository is the interactive design/experience preview. It should not be interpreted as proof that every screen is connected to production services or that all product workflows are production-ready.
+## What's in this repository
 
-## Product principles
+The project uses:
 
-- **Whole-person progress:** connect different areas of life in one coherent experience.
-- **User agency:** users remain in control of goals, routines, and participation.
-- **Support over shame:** missed days should be treated as information, not as a reason to erase progress.
-- **Progress with context:** encourage consistency without reducing people to a leaderboard score.
-- **Mobile-first craft:** prioritize readable hierarchy, deliberate interaction, and responsive layouts.
-- **Room to grow:** establish a product experience that can evolve alongside the Flutter client and Django backend.
-
-## OctoLife dimensions
-
-The product concept organizes personal growth into eight connected dimensions:
-
-1. **Health** — movement, fitness, and physical well-being.
-2. **Learning** — knowledge, study, and skill development.
-3. **Financial** — financial habits and money management.
-4. **Personal Development** — self-improvement and daily practices.
-5. **Career** — professional growth and meaningful work.
-6. **Mental & Emotional** — reflection, emotional well-being, and balance.
-7. **Challenge & Entertainment** — exploration, play, and shared experiences.
-8. **Overcoming Fears** — gradual, intentional steps beyond one's comfort zone.
-
-## Experience areas
-
-The intended product ecosystem brings together:
-
-- OctoLife overview and personal progress
-- Goals and routines
-- Challenges and progress reporting
-- Social connections and community participation
-- Content such as articles, journals, podcasts, and videos
-- Profile and personal preferences
-- A future coach and commerce ecosystem
-
-These describe the product direction, not a claim that every capability is currently implemented or connected.
-
-## Technology
-
-The preview repository uses:
-
-- React 19
+- React
 - TypeScript
 - Vite
-- Tailwind CSS v4
-- Lucide React icons
-- Recharts for data visualizations
+- Tailwind CSS
+- Lucide React
+- Recharts
 
-The wider GAMva product is being developed across separate repositories:
-
-| Component | Responsibility | Repository |
-|---|---|---|
-| Web preview | Visual and interaction reference | [gamva-preview](https://github.com/msalimimaram/gamva-preview) |
-| Mobile client | Flutter application | [gamva_mobile](https://github.com/msalimimaram/gamva_mobile) |
-| Backend | Django API and business services | [GAMva](https://github.com/msalimimaram/GAMva) |
-
-The backend and mobile repositories are private. Access to them is required to inspect their source.
-
-## Run locally
-
-### Prerequisites
-
-- Node.js version compatible with the repository's toolchain configuration
-- pnpm
-
-### Install and start
+To run it locally, install Node.js and pnpm, then run:
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-### Build for preview
+To create and preview a production build:
 
 ```bash
 pnpm build
 pnpm preview
 ```
 
-The deployed experience is also available at [gamva-preview.vercel.app](https://gamva-preview.vercel.app/).
+## Current status
 
-## Scope and limitations
+This is a design and interaction preview, not a guarantee that every feature is complete or connected to the backend. Before relying on a workflow, it needs to be tested for its actual behavior, data persistence, error handling and service integration.
 
-This repository is primarily a **product-design and frontend preview**. Before treating any workflow as production-ready, verify its implementation, accessibility, responsive behavior, error states, data persistence, and service integration independently. Do not infer backend integration from a visual screen alone.
+The wider product is still being developed. I’m using this repository to shape and refine the experience while the mobile app and backend continue separately.
 
-## Project direction
-
-The long-term ambition is to make personal development feel more connected and actionable: one platform where people can work on different areas of life, build sustainable routines, join challenges, learn, connect with others, and contribute to meaningful causes.
-
----
-
-<p align="center">
-  <sub>GAMva · OctoLife · Designed around progress across life, not just one metric.</sub>
-</p>
+Feedback and practical suggestions are welcome.
